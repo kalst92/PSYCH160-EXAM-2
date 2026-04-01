@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSYCH 160 · Exam 2 Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c0392b;
+    --accent2: #2980b9;
+    --accent3: #27ae60;
+    --accent4: #8e44ad;
+    --gold: #d4a017;
+    --muted: #7f8c8d;
+    --card: #ffffff;
+    --border: #d5cfc0;
+    --correct: #27ae60;
+    --wrong: #c0392b;
+    --highlight: #f39c12;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────── */
+  header {
+    background: var(--ink);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,.03) 20px, rgba(255,255,255,.03) 40px);
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: -.02em;
+    position: relative;
+  }
+  header h1 span { color: var(--gold); }
+  header p {
+    margin-top: .5rem;
+    font-size: .95rem;
+    opacity: .7;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+  }
+  .exam-meta {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem;
+    margin-top: 1.2rem; position: relative;
+  }
+  .exam-meta span {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: .35rem .85rem;
+    border-radius: 99px;
+    font-size: .8rem;
+    letter-spacing: .04em;
+  }
+
+  /* ── NAV TABS ─────────────────────────── */
+  nav {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,.1);
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-btn {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,.55);
+    padding: .85rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 500;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    transition: all .2s;
+    border-bottom: 3px solid transparent;
+    position: relative;
+  }
+  .nav-btn:hover { color: white; }
+  .nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .nav-badge {
+    background: var(--accent);
+    color: white;
+    border-radius: 99px;
+    font-size: .65rem;
+    padding: .1rem .4rem;
+    margin-left: .3rem;
+    vertical-align: middle;
+  }
+
+  /* ── MAIN CONTAINER ─────────────────────────── */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .section { display: none; animation: fadeUp .35s ease; }
+  .section.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  /* ── SECTION HEADER ─────────────────────────── */
+  .sec-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .sec-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  .sec-header .badge {
+    background: var(--ink);
+    color: white;
+    padding: .3rem .8rem;
+    border-radius: 6px;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── CHAPTER GRID (overview) ─────────────────────────── */
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .chapter-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all .2s;
+    border-top: 4px solid var(--accent);
+  }
+  .chapter-card:nth-child(2) { border-top-color: var(--accent2); }
+  .chapter-card:nth-child(3) { border-top-color: var(--accent3); }
+  .chapter-card:nth-child(4) { border-top-color: var(--accent4); }
+  .chapter-card:nth-child(5) { border-top-color: var(--gold); }
+  .chapter-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+  .chapter-card h3 { font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+  .chapter-card p { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-top: .3rem; }
+  .chapter-card .count { font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+
+  /* ── FLASHCARDS ─────────────────────────── */
+  .flashcard-controls {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+  .fc-filter {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: .5rem .9rem;
+    font-family: 'DM Sans', sans-serif; font-size: .85rem;
+    cursor: pointer; transition: all .2s;
+  }
+  .fc-filter.active { background: var(--ink); color: white; border-color: var(--ink); }
+  .fc-stats { margin-left: auto; font-size: .82rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  .flashcard-arena {
+    display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+  }
+  .flashcard-wrap {
+    perspective: 1200px;
+    width: 100%; max-width: 680px;
+    height: 280px;
+    cursor: pointer;
+  }
+  .flashcard {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .55s cubic-bezier(.645,.045,.355,1);
+    border-radius: 16px;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .fc-front {
+    background: var(--card);
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+  }
+  .fc-back {
+    background: var(--ink);
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  }
+  .fc-chapter {
+    font-size: .7rem; text-transform: uppercase; letter-spacing: .1em;
+    font-weight: 600; margin-bottom: .6rem;
+    opacity: .6;
+  }
+  .fc-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    line-height: 1.3;
+  }
+  .fc-hint { font-size: .78rem; color: var(--muted); margin-top: .8rem; }
+  .fc-def { font-size: .95rem; line-height: 1.6; }
+  .fc-example {
+    margin-top: .8rem; font-size: .82rem;
+    border-top: 1px solid rgba(255,255,255,.15);
+    padding-top: .8rem; opacity: .8;
+    font-style: italic;
+  }
+
+  .fc-nav {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .fc-btn {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: .65rem 1.3rem;
+    font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+    cursor: pointer; transition: all .15s;
+  }
+  .fc-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
+  .fc-btn.know { border-color: var(--correct); color: var(--correct); }
+  .fc-btn.know:hover { background: var(--correct); color: white; }
+  .fc-btn.review { border-color: var(--accent); color: var(--accent); }
+  .fc-btn.review:hover { background: var(--accent); color: white; }
+  .fc-progress {
+    font-family: 'DM Mono', monospace; font-size: .82rem; color: var(--muted);
+    min-width: 80px; text-align: center;
+  }
+  .progress-bar {
+    width: 100%; max-width: 680px;
+    height: 6px; background: var(--cream);
+    border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent2);
+    border-radius: 99px; transition: width .4s ease;
+  }
+
+  /* ── MULTIPLE CHOICE ─────────────────────────── */
+  .quiz-controls {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+  .quiz-score-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: .6rem 1.2rem;
+    font-family: 'DM Mono', monospace; font-size: .85rem;
+    display: flex; gap: 1.2rem;
+    margin-left: auto;
+  }
+  .score-correct { color: var(--correct); font-weight: 600; }
+  .score-wrong { color: var(--accent); font-weight: 600; }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow .2s;
+  }
+  .question-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+  .q-meta {
+    display: flex; align-items: center; gap: .6rem; margin-bottom: .8rem;
+  }
+  .q-num {
+    background: var(--ink); color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    font-size: .78rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+  }
+  .q-topic {
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .08em;
+    font-weight: 600; color: var(--muted);
+  }
+  .q-text {
+    font-size: 1.0rem; line-height: 1.6;
+    font-weight: 500; margin-bottom: 1rem;
+  }
+  .options { display: flex; flex-direction: column; gap: .5rem; }
+  .option {
+    display: flex; align-items: flex-start; gap: .75rem;
+    padding: .75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .15s;
+    background: var(--paper);
+    font-size: .9rem; line-height: 1.5;
+  }
+  .option:hover:not(.disabled) {
+    border-color: var(--accent2);
+    background: rgba(41,128,185,.05);
+  }
+  .option.selected { border-color: var(--accent2); background: rgba(41,128,185,.08); }
+  .option.correct { border-color: var(--correct); background: rgba(39,174,96,.1) !important; }
+  .option.wrong { border-color: var(--wrong); background: rgba(192,57,43,.08) !important; }
+  .option.disabled { cursor: default; }
+  .option-letter {
+    font-family: 'DM Mono', monospace;
+    font-weight: 600; font-size: .8rem;
+    width: 22px; flex-shrink: 0;
+    margin-top: .1rem;
+    color: var(--muted);
+  }
+  .option.correct .option-letter { color: var(--correct); }
+  .option.wrong .option-letter { color: var(--wrong); }
+
+  .explanation {
+    margin-top: 1rem;
+    background: rgba(41,128,185,.06);
+    border-left: 4px solid var(--accent2);
+    padding: .8rem 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: .88rem; line-height: 1.55;
+    display: none;
+  }
+  .explanation.show { display: block; animation: fadeUp .25s ease; }
+  .explanation strong { color: var(--accent2); }
+
+  /* ── SHORT ANSWER ─────────────────────────── */
+  .sa-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .sa-q { font-size: 1.0rem; font-weight: 500; line-height: 1.6; margin-bottom: .3rem; }
+  .sa-meta { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+  .sa-toggle {
+    background: var(--ink); color: white;
+    border: none; border-radius: 8px;
+    padding: .6rem 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: .85rem; font-weight: 500;
+    cursor: pointer; transition: opacity .2s;
+  }
+  .sa-toggle:hover { opacity: .8; }
+  .sa-answer {
+    margin-top: 1rem;
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    font-size: .9rem; line-height: 1.7;
+    display: none;
+  }
+  .sa-answer.show { display: block; animation: fadeUp .25s ease; }
+  .sa-answer h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--accent); margin-bottom: .5rem; }
+  .sa-answer p + p { margin-top: .5rem; }
+  .sa-answer ul { padding-left: 1.2rem; margin-top: .4rem; }
+  .sa-answer li { margin-bottom: .3rem; }
+
+  /* ── OVERVIEW TAB ─────────────────────────── */
+  .topic-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .topic-header {
+    background: var(--ink); color: white;
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    cursor: pointer;
+  }
+  .topic-header h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+  .topic-header .chap-badge {
+    background: rgba(255,255,255,.15);
+    font-size: .72rem; padding: .2rem .6rem; border-radius: 99px;
+    letter-spacing: .06em; white-space: nowrap;
+  }
+  .topic-chevron { margin-left: auto; transition: transform .3s; }
+  .topic-header.open .topic-chevron { transform: rotate(180deg); }
+  .topic-body {
+    padding: 1.5rem;
+    display: none;
+  }
+  .topic-body.open { display: block; animation: fadeUp .25s ease; }
+  .concept-list { display: flex; flex-direction: column; gap: .6rem; }
+  .concept-item {
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    font-size: .9rem; line-height: 1.5;
+  }
+  .concept-item strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .concept-item .tag {
+    display: inline-block;
+    background: var(--ink); color: white;
+    font-size: .65rem; padding: .15rem .5rem; border-radius: 99px;
+    margin-left: .4rem; vertical-align: middle;
+    letter-spacing: .06em; text-transform: uppercase;
+  }
+
+  /* ── TIPS TAB ─────────────────────────── */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .tip-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.3rem;
+    border-top: 4px solid var(--accent2);
+  }
+  .tip-card:nth-child(2n) { border-top-color: var(--accent4); }
+  .tip-card:nth-child(3n) { border-top-color: var(--accent3); }
+  .tip-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .5rem; }
+  .tip-card p { font-size: .88rem; line-height: 1.6; color: #444; }
+  .tip-card ul { padding-left: 1.1rem; margin-top: .4rem; }
+  .tip-card li { font-size: .88rem; line-height: 1.6; color: #444; margin-bottom: .25rem; }
+
+  /* ── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 600px) {
+    nav { gap: 0; }
+    .nav-btn { padding: .7rem .7rem; font-size: .72rem; }
+    .flashcard-wrap { height: 240px; }
+    .fc-term { font-size: 1.15rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+  }
+
+  /* ── UTILITY ─────────────────────────── */
+  .pill {
+    display: inline-block;
+    padding: .2rem .6rem;
+    border-radius: 99px;
+    font-size: .72rem; font-weight: 600;
+    letter-spacing: .05em; text-transform: uppercase;
+  }
+  .pill-r { background: rgba(192,57,43,.12); color: var(--accent); }
+  .pill-b { background: rgba(41,128,185,.12); color: var(--accent2); }
+  .pill-g { background: rgba(39,174,96,.12); color: var(--accent3); }
+  .pill-p { background: rgba(142,68,173,.12); color: var(--accent4); }
+
+  .btn-primary {
+    background: var(--ink); color: white;
+    border: none; border-radius: 10px;
+    padding: .65rem 1.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500;
+    cursor: pointer; transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .8; }
+
+  .info-box {
+    background: rgba(41,128,185,.06);
+    border: 1px solid rgba(41,128,185,.2);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    font-size: .88rem; line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .info-box strong { color: var(--accent2); }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PSYCH 160 · <span>Exam 2</span> Study Guide</h1>
+  <p>Social Psychology · Prof. Iris Mauss · Spring 2026</p>
+  <div class="exam-meta">
+    <span>📅 Exam: Fri, April 10 · 10:00 AM</span>
+    <span>📝 25 MC + 2 Short Answer = 70 pts</span>
+    <span>⏱️ 50 min (DSP 75–100 min)</span>
+    <span>📚 Chapters 6–10 + Jamieson et al.</span>
+  </div>
+</header>
+
+<nav id="mainNav">
+  <button class="nav-btn active" onclick="showSection('overview')">Overview</button>
+  <button class="nav-btn" onclick="showSection('flashcards')">Flashcards <span class="nav-badge" id="fc-count">80</span></button>
+  <button class="nav-btn" onclick="showSection('mc')">Multiple Choice <span class="nav-badge" id="mc-count">60</span></button>
+  <button class="nav-btn" onclick="showSection('sa')">Short Answer</button>
+  <button class="nav-btn" onclick="showSection('tips')">Study Tips</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OVERVIEW SECTION
+═══════════════════════════════════════════════════════════ -->
+<div id="overview" class="section active">
+  <div class="sec-header">
+    <h2>Topics Overview</h2>
+    <span class="badge">5 Chapters</span>
+  </div>
+
+  <div class="info-box">
+    <strong>Coverage:</strong> Emotion & Well-Being (Ch. 6), Attitudes, Behavior & Rationalization (Ch. 7), Persuasion (Ch. 8), Social Influence (Ch. 9), and Relationships & Attraction (Ch. 10). Plus the Jamieson et al. (2016) empirical article on stress reappraisal.
+  </div>
+
+  <div class="chapter-grid">
+    <div class="chapter-card"><h3>Chapter 6</h3><p>Emotion & Well-Being</p><div class="count">~18 key terms</div></div>
+    <div class="chapter-card"><h3>Chapter 7</h3><p>Attitudes, Behavior & Rationalization</p><div class="count">~16 key terms</div></div>
+    <div class="chapter-card"><h3>Chapter 8</h3><p>Persuasion</p><div class="count">~14 key terms</div></div>
+    <div class="chapter-card"><h3>Chapter 9</h3><p>Social Influence</p><div class="count">~15 key terms</div></div>
+    <div class="chapter-card"><h3>Chapter 10</h3><p>Relationships & Attraction</p><div class="count">~17 key terms</div></div>
+  </div>
+
+  <!-- CH 6 -->
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggleTopic(this)">
+      <h3>Emotion & Well-Being</h3>
+      <span class="chap-badge">Chapter 6</span>
+      <svg class="topic-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="topic-body">
+      <div class="concept-list">
+        <div class="concept-item"><strong>Emotion</strong> — Brief, specific response involving appraisals, experiences, expressions, and physiology; helps meet social goals. Differs from moods (which last hours/days) and disorders (weeks/months).</div>
+        <div class="concept-item"><strong>Appraisal Theory</strong> — Emotions arise from interpretations (appraisals) of events as pleasant/unpleasant, novel, fair, threatening, etc. How you construe a situation determines what emotion you feel.</div>
+        <div class="concept-item"><strong>Four Components of Emotion</strong> — (1) Appraisal/experience, (2) Expressive behavior, (3) Physiological changes, (4) Action tendencies/goal-directed behavior.</div>
+        <div class="concept-item"><strong>Universality of Facial Expressions (Ekman)</strong> — Paul Ekman studied the Fore people of Papua New Guinea (no Western media exposure). Both Fore and Americans accurately matched 6 basic emotions: happiness, surprise, sadness, anger, disgust, fear. Accuracy rates 68–98%. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>6 Basic Emotions (Ekman)</strong> — Happiness, surprise, sadness, anger, disgust, fear. Recent work extends to 15+ including pride, awe, embarrassment, envy, etc.</div>
+        <div class="concept-item"><strong>Constructivist vs. Evolutionary Approach</strong> — Evolutionary: emotions are adaptive, biologically based, universal. Constructivist: culture shapes what emotions we feel and express; focal emotions vary by culture.</div>
+        <div class="concept-item"><strong>Focal Emotions</strong> — Emotions especially common in a particular culture. E.g., anger more focal in honor cultures; shame/embarrassment more focal in interdependent cultures (China has 113 shame words vs. ~25 in English).</div>
+        <div class="concept-item"><strong>Affect Valuation Theory (Tsai)</strong> — Cultures value emotions that promote their ideals. Americans value excitement; East Asians value calmness. Influences consumer behavior, media, and leadership.</div>
+        <div class="concept-item"><strong>Emotion Regulation</strong> — (1) Reappraisal: reinterpreting causes; (2) Acceptance: viewing emotions as fleeting; (3) Suppression: minimizing outward expression. Interdependent cultures suppress more positive expressions.</div>
+        <div class="concept-item"><strong>Social Functional Theory</strong> — Emotions coordinate social interactions; enable forming, maintaining, negotiating relationships. Emotions signal commitment and build trust.</div>
+        <div class="concept-item"><strong>Oxytocin</strong> — Chemical that fosters commitment in relationships; produced in hypothalamus. Promotes trust and generosity within groups, but can enhance bias against outgroups (de Dreu).</div>
+        <div class="concept-item"><strong>Broaden-and-Build Hypothesis (Fredrickson)</strong> — Positive emotions broaden thoughts/actions; build social resources. Negative emotions narrow attention to specific details.</div>
+        <div class="concept-item"><strong>Happiness Components</strong> — (1) Life satisfaction (evaluative); (2) Emotional well-being (moment-to-moment ratio of positive to negative emotions). Also: eudaimonic happiness (meaning/purpose).</div>
+        <div class="concept-item"><strong>Affective Forecasting</strong> — Predicting future emotions. People are often poor forecasters due to immune neglect and focalism.</div>
+        <div class="concept-item"><strong>Immune Neglect</strong> — Failing to account for the psychological immune system when predicting unhappiness. We underestimate our resilience (e.g., "luckies vs. leftovers" breakup study).</div>
+        <div class="concept-item"><strong>Focalism</strong> — Focusing too much on the focal event while ignoring other life factors that also affect happiness. "Impact bias."</div>
+        <div class="concept-item"><strong>Duration Neglect</strong> — The length of an experience has surprisingly little effect on remembered pleasure; peak and endpoint matter most (Fredrickson & Kahneman).</div>
+        <div class="concept-item"><strong>Pursuit of Happiness (Evidence-Based)</strong> — Social connections, gratitude, giving to others, experiences > material goods, awe. Money helps up to ~$75K/year (Kahneman & Deaton) but recent data (Killingsworth) suggests happiness increases with income.</div>
+        <div class="concept-item"><strong>Jamieson et al. (2016) — Stress Reappraisal <span class="tag">Empirical Article</span></strong> — Biopsychosocial model: challenge (resources ≥ demands) vs. threat (demands > resources). Reappraising arousal as helpful improves exam performance. DVs: (1) exam performance, (2) cardiovascular reactivity, (3) evaluation anxiety. Reappraisal group showed better outcomes than placebo control.</div>
+        <div class="concept-item"><strong>Cultural Differences in Desired Emotions</strong> — East Asians prefer calm, low-arousal states; Americans prefer excited, high-arousal states. This predicts everything from children's books to political rhetoric.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CH 7 -->
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggleTopic(this)">
+      <h3>Attitudes, Behavior & Rationalization</h3>
+      <span class="chap-badge">Chapter 7</span>
+      <svg class="topic-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="topic-body">
+      <div class="concept-list">
+        <div class="concept-item"><strong>Attitude</strong> — An evaluation of an object along a positive-negative dimension. Three components: (1) Affective (feeling), (2) Cognitive (belief), (3) Behavioral (action tendency).</div>
+        <div class="concept-item"><strong>LaPiere Study</strong> — Toured US with a Chinese couple; only 1/250 establishments refused service. But ~90% said they wouldn't serve Chinese people when later surveyed by mail. Showed attitudes often don't predict behavior. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Why Attitudes Fail to Predict Behavior</strong> — (1) Conflict with other determinants (norms, habits); (2) Introspection misleads when attitude basis is emotional; (3) Mismatch between general attitude and specific target.</div>
+        <div class="concept-item"><strong>Implicit Attitudes & IAT</strong> — Implicit Association Test measures automatic evaluations people may be unaware of or unwilling to report. Reveals associations between attitude objects and positive/negative stimuli.</div>
+        <div class="concept-item"><strong>Cognitive Dissonance Theory (Festinger)</strong> — Inconsistency between thoughts/actions creates aversive arousal (dissonance) → motivation to restore consistency. Typically by changing attitude to match behavior.</div>
+        <div class="concept-item"><strong>Post-Decision Dissonance</strong> — After choosing between two equally attractive options, we bolster the chosen alternative and derogate the unchosen. Racetrack study: bettors more confident AFTER placing bet. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Effort Justification</strong> — Reducing dissonance by convincing yourself that something difficult or unpleasant was worth it. Aronson & Mills initiation study: severe initiation → rated boring group discussion more favorably. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Induced (Forced) Compliance</strong> — Being compelled to behave contrary to beliefs. Festinger & Carlsmith $1 vs. $20 study: those paid $1 (insufficient justification) rated boring task more favorably than those paid $20. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Insufficient Justification</strong> — Dissonance occurs when behavior is inconsistent with values AND the justification for the behavior is small. Small reward → more attitude change.</div>
+        <div class="concept-item"><strong>Conditions for Dissonance</strong> — (1) Freely chosen behavior, (2) Insufficient justification, (3) Negative consequences, (4) Foreseeable consequences.</div>
+        <div class="concept-item"><strong>Overjustification Effect</strong> — External rewards for intrinsically motivated behavior reduce internal motivation. Self-perception explanation: "I'm only doing this for the reward, so I don't really like it."</div>
+        <div class="concept-item"><strong>Self-Perception Theory (Bem)</strong> — Alternative to dissonance: people infer their own attitudes by observing their behavior, like outside observers do. More relevant when prior attitudes are vague/weak.</div>
+        <div class="concept-item"><strong>Reconciling Dissonance & Self-Perception</strong> — Both operate. Dissonance reduction for clear, important attitudes. Self-perception processes for vague, unimportant attitudes.</div>
+        <div class="concept-item"><strong>System Justification Theory (Jost)</strong> — People are motivated to defend existing sociopolitical systems as fair and legitimate, even if they're disadvantaged by them. Reduces ideological dissonance. Compensatory stereotypes example. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Cultural Differences in Dissonance</strong> — Japanese show dissonance in free-choice paradigm only when thinking about social others or when observed. Westerners show dissonance in standard conditions. Kitayama et al. poster study. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Terror Management Theory (TMT)</strong> — Confronting mortality increases defense of worldviews, ingroup loyalty, and striving for self-esteem. Mortality salience manipulations support this (Bush vs. Kerry study).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CH 8 -->
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggleTopic(this)">
+      <h3>Persuasion</h3>
+      <span class="chap-badge">Chapter 8</span>
+      <svg class="topic-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="topic-body">
+      <div class="concept-list">
+        <div class="concept-item"><strong>Elaboration Likelihood Model (ELM)</strong> — Two routes to persuasion: Central (careful argument evaluation; high motivation/ability) and Peripheral (superficial cues; low motivation/ability). Petty & Cacioppo.</div>
+        <div class="concept-item"><strong>Central Route</strong> — Persuasion via careful, systematic analysis of message content and argument strength. Requires high motivation and ability. Produces more durable attitude change.</div>
+        <div class="concept-item"><strong>Peripheral Route</strong> — Persuasion via heuristics and superficial cues (source attractiveness, credibility, number of arguments) without careful thought. Common when personally irrelevant.</div>
+        <div class="concept-item"><strong>Three Elements of Persuasion (3 W's)</strong> — (1) Source ("who") — attractiveness, credibility, certainty; (2) Message ("what") — quality, vividness, fear; (3) Audience ("to whom") — need for cognition, mood, age.</div>
+        <div class="concept-item"><strong>Source Attractiveness</strong> — Attractive sources are more persuasive, especially via peripheral route. Triggers liking which transfers to attitude object.</div>
+        <div class="concept-item"><strong>Source Credibility</strong> — Expert and trustworthy sources are more persuasive. Credibility matters both centrally (as evidence) and peripherally (as heuristic).</div>
+        <div class="concept-item"><strong>Sleeper Effect</strong> — Over time, a noncredible source's message can become persuasive as source and message become dissociated. Also documented for credible sources with weak messages.</div>
+        <div class="concept-item"><strong>Need for Cognition</strong> — Individual difference in tendency to engage in and enjoy effortful thinking. High NFC individuals are more influenced by argument quality; low NFC by peripheral cues.</div>
+        <div class="concept-item"><strong>Subliminal Persuasion</strong> — Subliminal stimuli can prime concepts but NO evidence they induce behaviors people oppose or cause major attitude change. Judas Priest trial discussed.</div>
+        <div class="concept-item"><strong>Vividness Effect</strong> — Vivid, colorful, memorable information is more persuasive. Even when information is atypical (e.g., welfare queen anecdote still changes attitudes about welfare).</div>
+        <div class="concept-item"><strong>Fear Appeals</strong> — Effective when paired with concrete action steps. Film + pamphlet > film alone > pamphlet alone (Leventhal et al. smoking study).</div>
+        <div class="concept-item"><strong>Agenda Control</strong> — Media shapes what people think is important by controlling issue prominence. More stories about energy → more people cite it as a top problem.</div>
+        <div class="concept-item"><strong>Hostile Media Phenomenon</strong> — People perceive media coverage as biased against their side. Results from naive realism (believing one sees things objectively).</div>
+        <div class="concept-item"><strong>Attitude Inoculation (McGuire)</strong> — Exposing people to weak attacks on their beliefs, plus encouraging counterarguments, makes them resistant to future persuasion. Applied to fake news resistance. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Selective Attention & Exposure</strong> — People attend to and evaluate information in ways that confirm existing beliefs. Leads to "echo chambers." Evaluating our own health diagnoses (Ditto & Lopez).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CH 9 -->
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggleTopic(this)">
+      <h3>Social Influence</h3>
+      <span class="chap-badge">Chapter 9</span>
+      <svg class="topic-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="topic-body">
+      <div class="concept-list">
+        <div class="concept-item"><strong>Social Influence Types</strong> — (1) Conformity: changing beliefs/behavior to align with others; (2) Compliance: responding favorably to explicit requests; (3) Obedience: submitting to authority demands.</div>
+        <div class="concept-item"><strong>Informational Social Influence</strong> — Conforming because others' behavior/opinions provide useful information about what's correct. Leads to internalization (private acceptance). Sherif's autokinetic illusion study. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Normative Social Influence</strong> — Conforming to avoid disapproval and negative social consequences. Leads to public compliance without private acceptance. Asch's line-matching study. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Sherif's Autokinetic Illusion Study</strong> — Participants in dark room converged their estimates of how far a light "moved." Group norms formed and persisted up to a year later. Demonstrates informational social influence. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Asch's Conformity Study</strong> — 8 participants (7 confederates) judged which line matched target. Confederates gave wrong answer. 75% conformed at least once; overall 33% conformity rate. Demonstrates normative social influence. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Factors Affecting Conformity</strong> — Group size (levels off at 3–4), unanimity (single ally dramatically reduces conformity), anonymity (reduces normative influence), expertise/status, cultural background (independent vs. interdependent), tight vs. loose cultures.</div>
+        <div class="concept-item"><strong>Tight vs. Loose Cultures (Gelfand)</strong> — Tight cultures: strong norms, little tolerance for deviance (India, Germany, China, Japan). Loose cultures: weaker norms, more deviance tolerated (Greece, Israel, Netherlands, US).</div>
+        <div class="concept-item"><strong>Milgram's Obedience Study</strong> — Participants as "teachers" administered increasing shocks to "learner" (confederate). 65% delivered maximum 450 volts in remote-feedback condition. Demonstrates destructive obedience to authority. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Why People Obeyed Milgram</strong> — Sense of obligation (agreed to participate), normative pressure (avoid experimenter disapproval), gradual escalation (stepwise), release of responsibility, physical distance from victim, perceived legitimacy of authority.</div>
+        <div class="concept-item"><strong>Milgram Moderating Factors</strong> — Proximity to learner ↓ obedience; physical distance from experimenter ↓ obedience; having an ally ↓ obedience; questioning authority's legitimacy ↓ obedience. Burger (2009) near-replication found similar rates.</div>
+        <div class="concept-item"><strong>Compliance Techniques</strong> — Foot-in-the-door (small request → large request), Door-in-the-face (large request → small request using reciprocal concessions), Norm of reciprocity, Descriptive vs. prescriptive norms.</div>
+        <div class="concept-item"><strong>Norm of Reciprocity</strong> — Universal social norm: if someone does something for you, you feel compelled to reciprocate. Cialdini's Boy Scout/chocolate bar experience illustrates door-in-the-face.</div>
+        <div class="concept-item"><strong>Pluralistic Ignorance</strong> — Acting contrary to true beliefs because you assume others don't share them, when in fact they do. Campus drinking example: students privately uncomfortable but assume everyone else is comfortable.</div>
+        <div class="concept-item"><strong>Reactance Theory</strong> — When freedom is threatened, motivation to restore it increases. If told not to do something, desire to do it increases. Explains some resistance to persuasion.</div>
+        <div class="concept-item"><strong>Minority Influence</strong> — Minorities can influence majorities through informational social influence, particularly if consistent, flexible, and persistent. Results in deeper, private attitude change vs. majority influence (surface compliance).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CH 10 -->
+  <div class="topic-block">
+    <div class="topic-header" onclick="toggleTopic(this)">
+      <h3>Relationships & Attraction</h3>
+      <span class="chap-badge">Chapter 10</span>
+      <svg class="topic-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="topic-body">
+      <div class="concept-list">
+        <div class="concept-item"><strong>Need to Belong</strong> — Baumeister & Leary: biologically based need for social belonging. Isolation increases mortality risk comparable to smoking. Harlow's monkey studies support.</div>
+        <div class="concept-item"><strong>Proximity Effect</strong> — Physical closeness leads to liking. MIT married-student housing study: people more likely to befriend those in same building/floor. Functional distance matters more than physical distance. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Mere Exposure Effect (Zajonc)</strong> — Repeated exposure to a stimulus increases liking of it. Works for faces, paintings, words (not auditory stimuli). Peaks around 35 exposures. Explains why proximity → attraction. <span class="tag">Key Study</span></div>
+        <div class="concept-item"><strong>Similarity</strong> — People like others who are similar to themselves. More important for core values than surface traits. Consensual validation: similar others affirm our worldview.</div>
+        <div class="concept-item"><strong>Matching Hypothesis</strong> — People tend to pair with others of similar physical attractiveness (more supported). Complementarity hypothesis (opposites attract) has mixed evidence except for status exchange.</div>
+        <div class="concept-item"><strong>Halo Effect</strong> — Attractive people assumed to have many other positive qualities (happiness, intelligence, competence). Self-fulfilling prophecy: attractive people develop better social skills due to preferential treatment. <span class="tag">Key Concept</span></div>
+        <div class="concept-item"><strong>Evolutionary Theory of Attraction</strong> — Mate preferences evolved to maximize reproductive fitness. Men prefer physical attractiveness and youth (signals fertility). Women prefer resources and status (signals ability to invest in offspring). Cross-cultural data from 37 cultures (Buss). BUT both genders rate kindness and intelligence most highly.</div>
+        <div class="concept-item"><strong>Socialization Critique (Eagly & Wood)</strong> — Gender differences in mate preferences may reflect socialization and structural gender inequality rather than evolution. In more gender-equal societies, differences are smaller.</div>
+        <div class="concept-item"><strong>Rewards Perspective on Relationships</strong> — We form and maintain relationships that provide rewards (especially making us feel good about ourselves).</div>
+        <div class="concept-item"><strong>Social Exchange Theory</strong> — People maximize rewards and minimize costs. Stay in relationships where rewards > costs. Key standards: comparison level (what you expect) and comparison level for alternatives (what you think you can get elsewhere).</div>
+        <div class="concept-item"><strong>Equity Theory</strong> — Relationships are satisfying when the ratio of rewards to costs is roughly equal for both partners. Fairness is the goal, not just profit maximization.</div>
+        <div class="concept-item"><strong>Investment Model (Rusbult)</strong> — Commitment depends on: (1) Satisfaction with the relationship, (2) Quality of alternatives (the worse, the more committed), (3) Size of investments (time, effort, shared memories). <span class="tag">Key Model</span></div>
+        <div class="concept-item"><strong>Attachment Theory (Bowlby)</strong> — Early bonds with caregivers shape adult relationships. Three styles: (1) Secure (comfortable with closeness), (2) Avoidant (uncomfortable with intimacy, distrusts), (3) Anxious-Ambivalent (fears abandonment, wants merger).</div>
+        <div class="concept-item"><strong>Varieties of Love</strong> — Companionate love (affection in long-term bonds), Compassionate love (caring about others' well-being), Romantic/passionate love (intense desire for another). Also Sternberg's components: intimacy, passion, commitment.</div>
+        <div class="concept-item"><strong>Predictors of Relationship Dissatisfaction</strong> — Neuroticism, low self-esteem, rejection sensitivity, young age at marriage, lower SES, poor communication. Gottman's "Four Horsemen": criticism, stonewalling, defensiveness, contempt (most toxic).</div>
+        <div class="concept-item"><strong>Strengthening Relationships</strong> — Capitalizing on good news (active constructive responses), playfulness and humor, idealizing partner (seeing virtues in faults), perceived partner responsiveness.</div>
+        <div class="concept-item"><strong>Communal vs. Exchange Relationships</strong> — Communal: long-term, based on need, family-like (Clark & Mills). Exchange: short-term, equity- and reciprocity-based (transactions).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FLASHCARDS SECTION
+═══════════════════════════════════════════════════════════ -->
+<div id="flashcards" class="section">
+  <div class="sec-header">
+    <h2>Flashcards</h2>
+    <span class="badge" id="fc-total-badge">80 Terms</span>
+  </div>
+
+  <div class="flashcard-controls">
+    <button class="fc-filter active" onclick="filterFlashcards('all', this)">All</button>
+    <button class="fc-filter" onclick="filterFlashcards('Ch6', this)">Ch 6</button>
+    <button class="fc-filter" onclick="filterFlashcards('Ch7', this)">Ch 7</button>
+    <button class="fc-filter" onclick="filterFlashcards('Ch8', this)">Ch 8</button>
+    <button class="fc-filter" onclick="filterFlashcards('Ch9', this)">Ch 9</button>
+    <button class="fc-filter" onclick="filterFlashcards('Ch10', this)">Ch 10</button>
+    <button class="fc-filter" onclick="filterFlashcards('review', this)" style="border-color:var(--accent);color:var(--accent)">⭐ Review</button>
+    <button class="btn-primary" onclick="shuffleCards()" style="margin-left:auto">🔀 Shuffle</button>
+    <div class="fc-stats" id="fc-stats">0 / 0</div>
+  </div>
+
+  <div class="flashcard-arena">
+    <div class="progress-bar"><div class="progress-fill" id="fc-progress" style="width:0%"></div></div>
+    <div class="flashcard-wrap" onclick="flipCard()">
+      <div class="flashcard" id="flashcard">
+        <div class="fc-face fc-front">
+          <div class="fc-chapter" id="fc-chapter">—</div>
+          <div class="fc-term" id="fc-term">Loading…</div>
+          <div class="fc-hint">Click to reveal definition</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-chapter" id="fc-chapter-b" style="opacity:.6">—</div>
+          <div class="fc-def" id="fc-def">—</div>
+          <div class="fc-example" id="fc-example"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-nav">
+      <button class="fc-btn review" onclick="markCard('review')">⭐ Review Again</button>
+      <button class="fc-btn" onclick="prevCard()">← Prev</button>
+      <div class="fc-progress" id="fc-progress-text">0 / 0</div>
+      <button class="fc-btn" onclick="nextCard()">Next →</button>
+      <button class="fc-btn know" onclick="markCard('know')">✓ Got It</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     MULTIPLE CHOICE SECTION
+═══════════════════════════════════════════════════════════ -->
+<div id="mc" class="section">
+  <div class="sec-header">
+    <h2>Multiple Choice</h2>
+    <span class="badge" id="mc-total-badge">60 Questions</span>
+  </div>
+  <div class="quiz-controls">
+    <button class="fc-filter active" onclick="filterMC('all', this)">All</button>
+    <button class="fc-filter" onclick="filterMC('Ch6', this)">Ch 6</button>
+    <button class="fc-filter" onclick="filterMC('Ch7', this)">Ch 7</button>
+    <button class="fc-filter" onclick="filterMC('Ch8', this)">Ch 8</button>
+    <button class="fc-filter" onclick="filterMC('Ch9', this)">Ch 9</button>
+    <button class="fc-filter" onclick="filterMC('Ch10', this)">Ch 10</button>
+    <button class="btn-primary" onclick="resetQuiz()">↺ Reset All</button>
+    <div class="quiz-score-box">
+      <span>✓ <span class="score-correct" id="score-correct">0</span></span>
+      <span>✗ <span class="score-wrong" id="score-wrong">0</span></span>
+    </div>
+  </div>
+  <div id="mc-questions"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SHORT ANSWER SECTION
+═══════════════════════════════════════════════════════════ -->
+<div id="sa" class="section">
+  <div class="sec-header">
+    <h2>Short Answer Practice</h2>
+    <span class="badge">15 Questions</span>
+  </div>
+  <div class="info-box">
+    <strong>Exam format:</strong> Choose 2 of 3 short-answer questions (each 10 pts). Practice articulating complete answers with theory + evidence + examples. Strong answers name the study (IV, DV, results) and connect to the broader concept.
+  </div>
+  <div id="sa-questions"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     STUDY TIPS SECTION
+═══════════════════════════════════════════════════════════ -->
+<div id="tips" class="section">
+  <div class="sec-header">
+    <h2>Study Tips & Strategies</h2>
+    <span class="badge">Exam Prep</span>
+  </div>
+  <div class="tips-grid" id="tips-container"></div>
+</div>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════
+
+const FLASHCARDS = [
+  // CH6
+  {ch:'Ch6', term:'Emotion', def:'Brief, specific response (lasting seconds–minutes) involving appraisals, experiences, expressions, and physiological changes; helps people meet social goals. Distinct from moods (hours/days) and disorders (weeks/months).', ex:'Feeling anger when someone cuts in line'},
+  {ch:'Ch6', term:'Appraisal', def:'The interpretation an individual gives to a situation that gives rise to an emotional experience. How you construe a situation — as pleasant, fair, threatening — determines what emotion you feel.', ex:'Viewing a test as a challenge vs. a threat'},
+  {ch:'Ch6', term:'Four Components of Emotion', def:'(1) Appraisal / subjective experience, (2) Expressive behavior (facial, vocal, postural), (3) Physiological changes (heart rate, cortisol), (4) Action tendencies / goal-directed behavior.', ex:'Fear: appraise threat → feel dread → wide eyes → heart races → flee'},
+  {ch:'Ch6', term:'Universality of Facial Expression', def:'People across cultures express and recognize the same basic emotions in faces. Ekman\'s Fore study in Papua New Guinea: isolated tribe with no Western media still accurately matched 6 emotions to stories.', ex:'Fore adults matched happiness, sadness, anger, fear, disgust, surprise'},
+  {ch:'Ch6', term:'Six Basic Emotions (Ekman)', def:'Happiness, surprise, sadness, anger, disgust, and fear. Cross-cultural recognition rates 70–98%. More recent work identifies 15+ distinct expressions.', ex:'Cowen et al. analyzed 6 million videos from 144 countries'},
+  {ch:'Ch6', term:'Constructivist Approach to Emotion', def:'Emotions derive from language, culture, values, and socialization practices that vary across cultures. Culture shapes what we feel, how we express feelings, and how we describe them.', ex:'Utku Inuit never show anger; Simpatía in Latino cultures'},
+  {ch:'Ch6', term:'Focal Emotions', def:'Emotions especially common within a particular culture, experienced and expressed with greater frequency and intensity. Reflect cultural values and ideals.', ex:'Anger in honor cultures; shame/embarrassment in interdependent cultures'},
+  {ch:'Ch6', term:'Affect Valuation Theory (Tsai)', def:'Cultures value and promote emotions that support their central ideals. Americans value excitement (independence), East Asians value calm contentedness (harmony). Drives consumer behavior and leadership displays.', ex:'US ads show big excited smiles; East Asian ads emphasize calm satisfaction'},
+  {ch:'Ch6', term:'Emotion Regulation', def:'Strategies to modify emotional states: (1) Reappraisal — reinterpreting causes; (2) Acceptance — recognizing emotions are temporary; (3) Suppression — minimizing outward signs.', ex:'Reframing a stressful presentation as an exciting opportunity'},
+  {ch:'Ch6', term:'Reappraisal', def:'Emotion regulation by reinterpreting the causes or meaning of an emotion-eliciting situation. Supported by Jamieson et al.: reappraising stress as helpful improved performance.', ex:'\"My racing heart means I\'m energized, not terrified\"'},
+  {ch:'Ch6', term:'Social Functional Theory', def:'Emotions coordinate social interactions, enabling people to form, maintain, and negotiate relationships (Frijda & Mesquita; Keltner & Haidt). Emotions signal commitment, coordinate group action, and reveal social status.', ex:'Gratitude signals commitment; anger protests injustice; awe unifies groups'},
+  {ch:'Ch6', term:'Oxytocin', def:'Neurochemical produced in the hypothalamus that promotes commitment, trust, and generosity toward in-group members. Can enhance bias against out-groups. Facilitates pair-bonding in romantic relationships.', ex:'Levels rise in parents after birth; couples more constructive after oxytocin nasal spray'},
+  {ch:'Ch6', term:'Broaden-and-Build Hypothesis (Fredrickson)', def:'Positive emotions broaden thought-action repertoires and build lasting social resources. Negative emotions narrow attention; positive emotions expand thinking creatively and socially.', ex:'Positive mood → more creative word associations → sees similarities with others'},
+  {ch:'Ch6', term:'Happiness (Two Components)', def:'(1) Life satisfaction: evaluative judgment of how well one\'s life is going. (2) Emotional well-being: moment-to-moment ratio of positive to negative emotions. Also eudaimonic happiness (meaning and purpose).', ex:'Life satisfaction: \"Overall I\'m satisfied\"; Emotional well-being: more awe, gratitude than anger'},
+  {ch:'Ch6', term:'Affective Forecasting', def:'Predicting how future events will affect one\'s emotions. People are systematically poor at this due to immune neglect and focalism. Often overestimate emotional impact of events.', ex:'Luckies vs. Leftovers: predicted breakup devastation far exceeded actual impact'},
+  {ch:'Ch6', term:'Immune Neglect', def:'Failing to account for the psychological immune system when predicting unhappiness. Underestimating our capacity to find silver linings, growth, or humor in adversity.', ex:'People predict tenure rejection will devastate them; actual impact much smaller'},
+  {ch:'Ch6', term:'Focalism', def:'Focusing too much on a central, salient event while ignoring other life factors that will also affect happiness. Leads to overestimating the hedonic impact of any single event.', ex:'Getting a dream job feels like it will ensure happiness but other stressors still matter'},
+  {ch:'Ch6', term:'Duration Neglect', def:'The length of an emotional experience has surprisingly little effect on how we remember it. Peak intensity and the endpoint of the experience matter most (peak-end rule).', ex:'A 20-minute massage vs. 60-minute massage rated similarly if quality and ending were the same'},
+  {ch:'Ch6', term:'Jamieson et al. (2016) — Reappraising Stress', def:'Biopsychosocial model: challenge (resources ≥ demands) vs. threat (demands > resources). Intervention: told students pre-exam arousal means they\'re prepared. DVs: exam grade, cardiovascular reactivity, evaluation anxiety. Reappraisal group outperformed placebo.', ex:'Saying \"my heart racing means I\'m excited\" → improved GRE-style scores'},
+  {ch:'Ch6', term:'Emotional Mimicry', def:'Automatically copying others\' emotional expressions. 4-month-olds mirror adult smiles. Adults unconsciously mirror postures, frowns, blushes. Promotes collaboration and cooperation.', ex:'Cricket teams that shared laughter played better together (Totterdell, 2000)'},
+
+  // CH7
+  {ch:'Ch7', term:'Attitude', def:'An evaluation of an object along a positive-negative dimension with three components: (1) Affective (emotional feeling), (2) Cognitive (beliefs/knowledge), (3) Behavioral (action tendency).', ex:'Attitude toward climate policy: worry (affective), belief in science (cognitive), donating to environmental groups (behavioral)'},
+  {ch:'Ch7', term:'LaPiere Study', def:'Sociologist traveled with a Chinese couple: only 1/250 establishments refused service, but ~90% later said they wouldn\'t serve Chinese people by mail. Classic demonstration that attitudes often fail to predict behavior.', ex:'Hotel owners\' stated anti-Chinese attitude didn\'t predict actual behavior with a specific, well-dressed Chinese couple'},
+  {ch:'Ch7', term:'Implicit Attitude Measure / IAT', def:'Indirect measure assessing automatic evaluations via reaction time. Tests associations between attitude objects and positive/negative stimuli. Reveals attitudes people are unaware of or unwilling to report.', ex:'Faster pairing of "White + pleasant" than "Black + pleasant" indicates implicit racial bias'},
+  {ch:'Ch7', term:'Cognitive Dissonance Theory (Festinger)', def:'Inconsistency between two cognitions creates aversive emotional arousal (dissonance), motivating efforts to restore consistency. Typically resolved by changing an attitude to align with behavior.', ex:'Smoking despite knowing it\'s unhealthy → rationalize that the research is overblown'},
+  {ch:'Ch7', term:'Post-Decision Dissonance', def:'After making an irrevocable choice, we rationalize by bolstering the chosen option and derogating the unchosen. Racetrack study: bettors rated their horse\'s chances better AFTER placing bets.', ex:'After choosing vacation to Costa Rica, start seeing Greece as overrated'},
+  {ch:'Ch7', term:'Effort Justification', def:'Reducing dissonance by justifying time/effort/money devoted to something disappointing. Aronson & Mills initiation study: women who underwent severe initiation rated a boring group discussion more favorably.', ex:'Medical students endure brutal residency and conclude it was worth it'},
+  {ch:'Ch7', term:'Induced Compliance', def:'Being compelled to behave contrary to one\'s beliefs creates dissonance. Festinger & Carlsmith: paid $1 (not $20) to call a boring task interesting → rated it as more enjoyable (insufficient justification → more attitude change).', ex:'LBJ sending doubters to Vietnam where they publicly defended war policy'},
+  {ch:'Ch7', term:'Insufficient Justification', def:'When behavior inconsistent with values has minimal external justification, more dissonance is experienced → more attitude change to justify the behavior. Small reward → bigger change than large reward.', ex:'$1 vs. $20: those paid $1 changed their attitude more to justify the lie'},
+  {ch:'Ch7', term:'Overjustification Effect', def:'External rewards for an already-enjoyable activity reduce intrinsic motivation. Self-perception explanation: "If I need a reward to do it, I don\'t intrinsically love it."', ex:'Children paid to draw later draw less when no payment is offered'},
+  {ch:'Ch7', term:'Self-Perception Theory (Bem)', def:'People infer their own attitudes by observing their behavior (like an outside observer would). No arousal required. Operates when prior attitudes are vague or weak.', ex:'"I must really love spaghetti — I ate the whole dish!"'},
+  {ch:'Ch7', term:'System Justification Theory (Jost)', def:'People are motivated to defend and legitimate existing social/political systems, even when disadvantaged by them. Reduces ideological dissonance. Compensatory stereotypes maintain belief in fairness.', ex:'Some women report deserving lower pay; poor people often support status quo policies'},
+  {ch:'Ch7', term:'Conditions for Dissonance', def:'Dissonance occurs when behavior is (1) freely chosen, (2) insufficiently justified, (3) has negative consequences, and (4) those consequences were foreseeable.', ex:'Writing a counter-attitudinal essay voluntarily with a small payment → dissonance → attitude change'},
+  {ch:'Ch7', term:'Cultural Differences in Dissonance', def:'Japanese show post-decision dissonance only when primed to think about social others (Kitayama et al. poster study). Westerners show it in standard conditions. Dissonance is apparently universal but culturally triggered differently.', ex:'Japanese choose a CD for themselves (no dissonance) vs. for a friend (dissonance)'},
+  {ch:'Ch7', term:'Terror Management Theory (TMT)', def:'When mortality is made salient, people defend their worldview more vigorously, show ingroup favoritism, and strive for self-esteem (symbolic immortality). Mortality salience manipulation: write about death experience.', ex:'After 9/11, surge of patriotism and support for authoritarian leaders'},
+  {ch:'Ch7', term:'Self-Affirmation', def:'Affirming important values in other domains can reduce the need for dissonance reduction. Allows people to tolerate inconsistency in one area by affirming their overall self-worth elsewhere.', ex:'Affirming being a good parent reduces need to rationalize driving an SUV'},
+
+  // CH8
+  {ch:'Ch8', term:'Elaboration Likelihood Model (ELM)', def:'Two routes to persuasion: Central route (careful argument evaluation when motivation and ability are high) and Peripheral route (heuristics and superficial cues when motivation/ability are low). Petty & Cacioppo.', ex:'You carefully evaluate a health insurance argument when it affects you; accept celebrity endorsement otherwise'},
+  {ch:'Ch8', term:'Central Route to Persuasion', def:'Persuasion through careful, systematic processing of message content and argument strength. Requires high motivation (personal relevance) and ability (knowledge, no distraction). More durable attitude change.', ex:'Personally relevant exam policy → students carefully evaluated strong vs. weak arguments'},
+  {ch:'Ch8', term:'Peripheral Route to Persuasion', def:'Persuasion through easy-to-process cues (source attractiveness, credibility, number of arguments) without careful thought. Common when personally irrelevant. Less durable change.', ex:'Attractive celebrity endorses product → attitude change without processing the message'},
+  {ch:'Ch8', term:'Need for Cognition', def:'Individual difference in tendency to engage in and enjoy effortful cognitive activity. High NFC → more influenced by argument quality (central route). Low NFC → more influenced by peripheral cues.', ex:'High NFC students evaluate the logic of arguments; low NFC students rely on expert labels'},
+  {ch:'Ch8', term:'Sleeper Effect', def:'Over time, persuasion from a noncredible source can increase as the source becomes dissociated from the message. The message\'s strength eventually drives attitude change independent of source.', ex:'Propaganda from low-credibility source initially rejected, but persuasive weeks later'},
+  {ch:'Ch8', term:'Source Credibility', def:'Expert and trustworthy sources are more persuasive. Can work through both routes. Particularly effective as peripheral cue for low-relevance audiences.', ex:'Toothpaste ad with a dentist; MLK Jr.\'s credibility in the Civil Rights Movement'},
+  {ch:'Ch8', term:'Vividness Effect', def:'Vivid, colorful, memorable information is more persuasive than pallid, abstract statistics. Even atypical vivid examples shape attitudes (welfare queen anecdote overrode statistical correction).', ex:'Single child\'s photo raises more donations than statistics about thousands of starving children'},
+  {ch:'Ch8', term:'Fear Appeals', def:'Effective when paired with concrete action steps (Leventhal). Film (fear) + pamphlet (action) > either alone for reducing smoking. Without action information, fear can overwhelm and reduce processing.', ex:'Anti-smoking film + quit-smoking instructions: most effective combination'},
+  {ch:'Ch8', term:'Agenda Control', def:'Media influences what issues people think are important by controlling the frequency and prominence of coverage. More stories on energy → more people cite energy as top national problem.', ex:'Iyengar & Kinder study: 3 energy stories → 50% cite it important; 6 stories → 65%'},
+  {ch:'Ch8', term:'Hostile Media Phenomenon', def:'Tendency for people to perceive media coverage of controversial issues as biased against their preferred side. Results from naive realism — believing one sees things objectively.', ex:'Both pro-Israel and pro-Palestine students viewed same news coverage as biased against their side'},
+  {ch:'Ch8', term:'Attitude Inoculation (McGuire)', def:'Exposing people to weak attacks on their beliefs plus encouraging counterarguments makes them resistant to future, stronger persuasive attacks. Applied to preventing smoking uptake and fake news susceptibility.', ex:'Bad News game: inoculated participants rated fake news as less reliable'},
+  {ch:'Ch8', term:'Subliminal Persuasion', def:'Subliminal stimuli can prime concepts and slightly influence judgments, but NO evidence they cause people to act against their will or make major attitude changes. External validity limited.', ex:'Judas Priest subliminal "Do it" case: no evidence subliminal messages cause suicide'},
+  {ch:'Ch8', term:'Thought Polarization Hypothesis', def:'Extended thinking about an attitude object tends to produce more extreme, entrenched attitudes. Explains why persuasion is harder for people who have thought a lot about an issue.', ex:'Asking people to explain their existing attitude makes it more resistant to change'},
+  {ch:'Ch8', term:'Message Framing (Culture)', def:'Independent cultures respond better to individually-framed persuasive messages ("benefit to you"); Interdependent cultures respond better to collective-framed messages ("benefit to us"). Uskul et al. flossing study.', ex:'Korean ads: "We have a way of bringing people closer"; US ads: "Make your way through the crowd"'},
+
+  // CH9
+  {ch:'Ch9', term:'Social Influence', def:'The broad category of effects that other people have on our beliefs, attitudes, and behaviors. Includes conformity, compliance, and obedience.', ex:'Tattoos went from 1980 (sailors/prisoners only) to 30% of US adults by 2016'},
+  {ch:'Ch9', term:'Conformity', def:'Changing beliefs or behavior to more closely align with others, in response to explicit or implicit pressure (real or imagined). Can be automatic (mimicry) or deliberate.', ex:'Wearing hats because everyone else did in the 1930s'},
+  {ch:'Ch9', term:'Compliance', def:'Responding favorably to an explicit request from another person. Can use techniques like foot-in-the-door or door-in-the-face.', ex:'Agreeing to donate $20 after being asked for $50'},
+  {ch:'Ch9', term:'Obedience', def:'Submitting to explicit demands from an authority figure. In unequal power relationship.', ex:'Milgram\'s participants following experimenter\'s commands to administer shocks'},
+  {ch:'Ch9', term:'Informational Social Influence', def:'Conforming because others\' behavior provides useful information about what\'s correct or appropriate. Leads to internalization (private acceptance). Demonstrated by Sherif\'s autokinetic study.', ex:'New employee copies how others dress because it signals the office culture'},
+  {ch:'Ch9', term:'Normative Social Influence', def:'Conforming to avoid disapproval and negative social consequences. Often leads to public compliance without private acceptance. Demonstrated by Asch\'s line study.', ex:'Agreeing with the group on the line length you know is wrong to avoid rejection'},
+  {ch:'Ch9', term:'Sherif\'s Autokinetic Study', def:'Participants in dark room estimated movement of stationary light dot (autokinetic illusion). Solo estimates varied widely; in groups, estimates converged into a group norm persisting up to a year later.', ex:'One participant thought light moved 2 inches, another 8; together they converged toward 5 inches'},
+  {ch:'Ch9', term:'Asch\'s Conformity Study', def:'8 students (7 confederates) matched line lengths. Confederates gave clearly wrong answers on 12 critical trials. 75% of real participants conformed at least once; overall 33% conformity rate.', ex:'Participant says "C" (shorter line) even though "B" is obviously correct because 7 others said C'},
+  {ch:'Ch9', term:'Factors in Conformity', def:'Group size (levels off at 3–4); unanimity (even one ally dramatically reduces conformity); anonymity (reduces normative pressure); expertise/status; cultural background (independent vs. interdependent); tight vs. loose culture.', ex:'Having just one other person who disagrees with the majority cuts conformity rate in half'},
+  {ch:'Ch9', term:'Tight vs. Loose Cultures (Gelfand)', def:'Tight: strong norms, little tolerance for deviance (India, Germany, China, Japan, South Korea). Loose: weaker norms, more deviance tolerated (Greece, Israel, US, Netherlands). Ecological constraints drive tightness.', ex:'Tight countries have more laws, harsher punishments, more autocratic governments'},
+  {ch:'Ch9', term:'Milgram\'s Obedience Study', def:'Participants ("teachers") delivered increasing electric shocks (15–450V) to a "learner" (confederate) whenever told. In voice-feedback version: 62.5% delivered maximum 450V despite learner\'s screams.', ex:'65% administered full 450V in remote-feedback condition despite learner pounding on wall'},
+  {ch:'Ch9', term:'Key Processes in Milgram Obedience', def:'(1) Gradual escalation (stepwise, hard to stop); (2) Release of responsibility (experimenter takes blame); (3) Perceived legitimacy of authority; (4) Physical distance from victim; (5) Normative pressure to not make a scene.', ex:'Obedience dropped when learner was in the same room (proximity increased salience)'},
+  {ch:'Ch9', term:'Foot-in-the-Door Technique', def:'Compliance technique: small request first (nearly everyone agrees) → shifts self-image → larger request has higher compliance. Works because initial agreement changes self-concept ("I\'m someone who helps with this").', ex:'First ask if you can put a small sign in yard; later ask for a large ugly sign → more compliance'},
+  {ch:'Ch9', term:'Door-in-the-Face Technique', def:'Compliance technique: large request first (inevitably refused) → followed by smaller, real request. The step-down is perceived as a concession; norm of reciprocity compels matching concession.', ex:'Cialdini\'s Boy Scout: asked for 2-year volunteering commitment → "Will you chaperone one zoo trip?"'},
+  {ch:'Ch9', term:'Norm of Reciprocity', def:'Universal social norm: if someone provides a benefit, one is obligated to reciprocate. Powers the door-in-the-face technique. Exists across cultures and many animal species.', ex:'Restaurant servers leave a mint with the bill → larger tip; Hare Krishna flowers → donations'},
+  {ch:'Ch9', term:'Pluralistic Ignorance', def:'Acting contrary to true beliefs because you assume your beliefs aren\'t shared, when in fact many others share them. Creates false normative consensus. Common with campus drinking.', ex:'Princeton students privately uncomfortable with drinking norms but assumed everyone else was comfortable'},
+  {ch:'Ch9', term:'Reactance Theory', def:'When freedom of action/thought is threatened, people experience arousal and act to restore their prerogatives. Explains why "forbidden" behaviors become more attractive.', ex:'"Don\'t look at that sign" → people look more; prohibition makes alcohol more desirable'},
+
+  // CH10
+  {ch:'Ch10', term:'Need to Belong', def:'Baumeister & Leary: biologically based need for regular, positive social bonds. Failure to meet this need causes psychological harm. Evolutionary basis: survival, reproduction, cooperation.', ex:'Harlow monkey experiment: monkeys preferred cloth (comfort) to wire (food) mother'},
+  {ch:'Ch10', term:'Proximity Effect', def:'Physical closeness predicts friendship and attraction. MIT housing study: residents of same floor 4x more likely to become friends. Functional distance (layout) matters more than physical distance.', ex:'Residents near stairwells formed 2x as many friendships with upstairs neighbors'},
+  {ch:'Ch10', term:'Mere Exposure Effect (Zajonc)', def:'Repeated exposure to a stimulus increases liking of it, even without conscious awareness. Works for faces, paintings, words. Peaks around 35 exposures. Explains proximity → liking.', ex:'Students shown yearbook photos 25x more liked those people more; rats prefer Mozart after Mozart exposure'},
+  {ch:'Ch10', term:'Similarity and Attraction', def:'People like others similar to themselves. More powerful for core values than surface traits. Works via consensual validation: similar others affirm our worldview and feel rewarding to interact with.', ex:'Couples tend to match in education, religion, political values, physical attractiveness'},
+  {ch:'Ch10', term:'Matching Hypothesis', def:'People tend to pair with romantic partners of similar physical attractiveness. More supported by evidence than complementarity hypothesis (opposites attract).', ex:'Study of couples: physical attractiveness ratings of partners closely correlated'},
+  {ch:'Ch10', term:'Complementarity Hypothesis', def:'The idea that people are attracted to those with different, complementary characteristics. Has mixed support; mainly applies to specific traits (dominant + nurturing) or status exchange.', ex:'Someone quiet attracted to someone talkative — some support, but less than for similarity'},
+  {ch:'Ch10', term:'Halo Effect', def:'The assumption that physically attractive individuals possess many other positive qualities (intelligence, kindness, competence). Self-fulfilling because attractive people receive better treatment and develop better skills.', ex:'Attractive defendants receive shorter prison sentences; attractive people judged as more intelligent in photos'},
+  {ch:'Ch10', term:'Evolutionary Theory of Attraction', def:'Mate preferences evolved to maximize reproductive fitness. Men evolved to prefer youth and physical attractiveness (fertility cues). Women evolved to prefer resources and status (investment in offspring). Buss 37-culture study.', ex:'Personal ads: men offer resources, seek beauty; women offer beauty, seek resources'},
+  {ch:'Ch10', term:'Socialization Alternative (Eagly & Wood)', def:'Gender differences in mate preference may reflect gender inequality rather than evolution. In more gender-equal societies, differences shrink. Women seek resources because they have less access to them structurally.', ex:'In Finland (gender-equal) vs. Turkey (unequal): women in Finland less focused on male earnings'},
+  {ch:'Ch10', term:'Social Exchange Theory', def:'People maximize rewards and minimize costs in relationships. Stay when rewards exceed costs. Key standards: comparison level (what you expect) and comparison level for alternatives (what else is available).', ex:'Someone with many attractive alternatives has high CL-alt → lower relationship commitment'},
+  {ch:'Ch10', term:'Equity Theory', def:'People want fairness: ratio of rewards to costs should be roughly equal for both partners. Can feel equitable even if one partner gets more, as long as they put in more. Dissatisfaction from over- or under-benefit.', ex:'Relationship feels unfair if one partner sacrifices career while other doesn\'t reciprocate'},
+  {ch:'Ch10', term:'Investment Model of Commitment (Rusbult)', def:'Commitment = f(satisfaction + poor alternatives + high investments). Three determinants: (1) satisfaction with rewards/costs, (2) quality of alternative partners, (3) size of relationship investments.', ex:'Stay in unhappy relationship because of shared mortgage, children, years together'},
+  {ch:'Ch10', term:'Attachment Theory (Bowlby)', def:'Early bonds with caregivers create "working models" that shape adult relationships. Three types: Secure, Avoidant, Anxious-Ambivalent. Can change with new experiences.', ex:'Anxiously attached child → adult who fears abandonment and wants merger in relationships'},
+  {ch:'Ch10', term:'Three Attachment Styles', def:'Secure: comfortable with closeness, not anxious. Avoidant: uncomfortable with intimacy, distrusts dependence. Anxious-Ambivalent: fears abandonment, wants merger, often worries partner doesn\'t love them.', ex:'Secure adults: seek support from partners effectively; avoidant adults: withdraw when distressed'},
+  {ch:'Ch10', term:'Varieties of Love', def:'(1) Companionate love: affection and intimacy in long-term bonds; (2) Compassionate love: care for another\'s well-being; (3) Romantic/passionate love: intense desire. Sternberg\'s triangle: intimacy, passion, commitment.', ex:'Long-married couple: high companionate love, lower passion, high commitment'},
+  {ch:'Ch10', term:'Gottman\'s Four Horsemen', def:'Four communication patterns most predictive of divorce: (1) Criticism, (2) Contempt (most toxic — looking down on partner), (3) Defensiveness, (4) Stonewalling. Couples who divorce expressed 2x more contempt.', ex:'Rolling eyes at partner\'s statement (contempt); shutting down discussion (stonewalling)'},
+  {ch:'Ch10', term:'Capitalizing on Good News', def:'Responding to a partner\'s good news with active, constructive engagement (asking questions, showing enthusiasm) predicts greater relationship satisfaction. Passive or destructive responses harm relationships.', ex:'Partner shares promotion news: ask questions enthusiastically vs. saying "That\'s nice" distantly'},
+  {ch:'Ch10', term:'Communal vs. Exchange Relationships', def:'Communal: long-term, based on need (give according to what partner needs), family-like. Exchange: short-term, based on equity and reciprocity (you get what you give). Clark & Mills.', ex:'Family member gives you $500 when needed (communal); business deal requires equivalent trade (exchange)'},
+];
+
+const MC_QUESTIONS = [
+  // CH6 Questions
+  {ch:'Ch6', q:'Which of the following best describes the key difference between an emotion and a mood?', opts:['Emotions involve physiological changes; moods do not','Emotions are brief and specific; moods are more diffuse and longer-lasting','Moods are more intense than emotions','Emotions are universal; moods vary by culture'], ans:1, exp:'Emotions are brief (seconds to minutes), arising in response to specific events, while moods are more diffuse, unfocused, and last hours to days. Emotional disorders last weeks to months.'},
+  {ch:'Ch6', q:'Paul Ekman studied the Fore people of Papua New Guinea primarily to:', opts:['Test whether culture shapes which emotions we feel most frequently','Determine whether facial expressions of emotion are universal across cultures','Understand emotional suppression in non-Western cultures','Test the broaden-and-build hypothesis'], ans:1, exp:'Ekman needed a culturally isolated group to test Darwin\'s universality hypothesis. The Fore had no Western media exposure, so recognition of emotions couldn\'t be explained by cultural learning.'},
+  {ch:'Ch6', q:'The Fore people in Papua New Guinea were studied by Ekman because:', opts:['They showed completely different emotional expressions from Westerners','They had little or no exposure to Western media','They demonstrated higher emotional intelligence','They were known for extensive emotional suppression'], ans:1, exp:'Ekman went to Papua New Guinea specifically because the Fore had no movies, magazines, didn\'t speak English, and had never worked for Westerners — eliminating the critique that cross-cultural similarity was due to media exposure.'},
+  {ch:'Ch6', q:'According to Tsai\'s affect valuation theory, why do Americans tend to prefer exciting activities like mountain biking while East Asians tend to prefer calmer activities?', opts:['Americans have higher neurological arousal thresholds','Different cultures value different emotional states that support their cultural ideals','East Asians have lower cardiovascular fitness','Americans are more hedonistic by nature'], ans:1, exp:'Tsai\'s theory holds that cultures value emotions that promote important cultural ideals. Independence and self-expression (American values) are served by excitement; harmony and fitting in (East Asian values) are served by calmness.'},
+  {ch:'Ch6', q:'Fredrickson\'s broaden-and-build hypothesis states that positive emotions:', opts:['Narrow our attention to solve immediate problems','Broaden thought-action repertoires and build social resources','Have the same effect on cognition as negative emotions','Are primarily useful for individual, not social, functioning'], ans:1, exp:'Fredrickson\'s research showed positive emotions broaden patterns of thinking (more creative associations, more inclusive categories) and build lasting resources — social, intellectual, physical — that outlast the brief emotional moment.'},
+  {ch:'Ch6', q:'In Gilbert et al.\'s study on affective forecasting ("luckies vs. leftovers"), the main finding was that:', opts:['People accurately predicted how unhappy a breakup would make them','People overestimated how long and severely a breakup would affect their happiness','People underestimated the negative impact of romantic breakups','People\'s happiness did not change at all after a breakup'], ans:1, exp:'Luckies predicted they would be much unhappier two months after a breakup than leftovers (who had actually experienced breakups) actually were. This demonstrates immune neglect: we forget our psychological resilience.'},
+  {ch:'Ch6', q:'Which emotion regulation strategy involves accepting emotions as fleeting and recognizing that their causes change over time?', opts:['Reappraisal','Suppression','Acceptance','Sublimation'], ans:2, exp:'Acceptance as a regulation strategy means adopting an open, welcoming attitude to emotions, recognizing they are temporary. This differs from reappraisal (changing the meaning of a situation) and suppression (hiding external expression).'},
+  {ch:'Ch6', q:'The Jamieson et al. (2016) study on exam stress was based on which theoretical framework?', opts:['Terror management theory','Biopsychosocial model of challenge and threat','Social functional theory of emotion','Broaden-and-build hypothesis'], ans:1, exp:'Jamieson et al. used the biopsychosocial model: challenge occurs when coping resources ≥ demands; threat when demands > resources. Reappraising arousal as helpful shifted students from threat to challenge states.'},
+  {ch:'Ch6', q:'In interdependent cultures, which emotion regulation strategy is used MORE frequently compared to independent cultures?', opts:['Reappraisal','Acceptance','Suppression of positive emotions','Mindfulness'], ans:2, exp:'Studies across dozens of cultures find that people from interdependent cultures (China, Japan, Korea) are more likely to suppress positive emotional expressions (not showing too much pride or excitement) than people from independent cultures.'},
+  {ch:'Ch6', q:'What does "focalism" refer to in the context of affective forecasting errors?', opts:['The tendency to focus only on positive outcomes','Overweighting a focal event while ignoring other life factors that will also affect happiness','A bias toward underestimating the intensity of emotions','The tendency to think emotions will last longer than they do'], ans:1, exp:'Focalism: We focus too much on the central, salient event (job offer, breakup) while neglecting the many other events and circumstances that will also influence how happy we are. "Nothing is as important as you think it is at the moment you\'re thinking it." — Kahneman'},
+
+  // CH7 Questions
+  {ch:'Ch7', q:'LaPiere\'s 1930s study demonstrated which important principle about the attitude-behavior relationship?', opts:['Attitudes strongly predict behavior in most cases','Attitudes often fail to predict behavior, especially specific behaviors toward specific individuals','Racial prejudice was stronger than expected in that era','Behavior can change attitudes over time'], ans:1, exp:'LaPiere found only 1/250 establishments refused service to his Chinese companions, but ~90% said in a mail survey they wouldn\'t serve Chinese people. General attitudes toward a class don\'t always predict behavior toward specific individuals.'},
+  {ch:'Ch7', q:'A cognitive dissonance theorist would predict that a person paid $1 (vs. $20) to tell someone a boring task was interesting would subsequently:', opts:['Report being more bored with the task','Rate the boring task as more interesting','Feel more guilty about lying','Have no attitude change about the task'], ans:1, exp:'Festinger & Carlsmith\'s classic study: the $1 group had insufficient justification for lying, creating dissonance, which they resolved by changing their attitude to believe the task was actually interesting. The $20 group had sufficient justification and needed no attitude change.'},
+  {ch:'Ch7', q:'In Aronson & Mills\'s initiation study, women who went through a SEVERE (vs. mild) initiation rated the discussion group as:', opts:['Less interesting, because they expected more','More interesting, to justify their suffering','Equally interesting to mild initiation participants','More interesting because severe initiation selects for dedicated members'], ans:1, exp:'The cognition "I suffered terribly to join" is dissonant with "this group is boring." To reduce dissonance, participants in the severe initiation convinced themselves the group was actually interesting — the classic effort justification finding.'},
+  {ch:'Ch7', q:'What is the key difference between cognitive dissonance theory and self-perception theory in explaining attitude change after behavior?', opts:['Dissonance theory requires attitude change; self-perception allows for no change','Dissonance theory posits aversive arousal motivates change; self-perception theory posits cool inference from behavior, no arousal required','Self-perception applies to strong attitudes; dissonance to weak ones','They make identical predictions in all circumstances'], ans:1, exp:'Dissonance theory: inconsistency generates unpleasant physiological arousal that motivates attitude change. Self-perception theory: no arousal needed — people simply infer their attitudes by observing their behavior like an outside observer would.'},
+  {ch:'Ch7', q:'According to system justification theory, why do some people in disadvantaged groups defend the system that disadvantages them?', opts:['They lack information about their disadvantage','Defending the system reduces ideological dissonance and is psychologically comforting','They are responding to social pressure from the advantaged group','System justification only applies to advantaged groups'], ans:1, exp:'Jost argues that believing the world is or should be fair, yet seeing inequality, creates dissonance. Defending the existing system as legitimate and fair is often easier than trying to change it or acknowledging one\'s disadvantage.'},
+  {ch:'Ch7', q:'The overjustification effect predicts that if you start paying a child to do something they already love doing:', opts:['Their love of the activity will increase','Their intrinsic motivation for the activity will decrease','They will attribute their interest entirely to the activity itself','No change in motivation will occur'], ans:1, exp:'Self-perception explanation: If I\'m getting paid to do X, then an external reason explains my behavior, so I must not really love X for itself. "Overjustification" because the extrinsic reason is more than sufficient, undermining the intrinsic reason.'},
+  {ch:'Ch7', q:'The Kitayama et al. cultural study on dissonance showed that Japanese participants showed post-decision dissonance only when:', opts:['Choosing for a close friend','They were compensated with a large payment','A poster with schematic faces (suggesting social others) was visible','They were told the experiment was about choice'],  ans:2, exp:'Japanese participants needed priming of "social others" to show the standard dissonance effect. This is consistent with East Asians being more attuned to others\' perspectives — dissonance occurs when they imagine how others would evaluate their choice.'},
+  {ch:'Ch7', q:'Which conditions are necessary for induced-compliance to produce dissonance? (Choose the most complete answer)', opts:['Just freely-chosen behavior','Freely chosen behavior that is insufficiently justified','Free choice, insufficient justification, negative consequences, and foreseeability','Any behavior that conflicts with existing attitudes'], ans:2, exp:'All four conditions are needed for dissonance: (1) free choice, (2) insufficient justification, (3) negative consequences that result, and (4) those consequences were foreseeable. If any condition is absent, dissonance is reduced or absent.'},
+  {ch:'Ch7', q:'What does the Implicit Association Test (IAT) measure?', opts:['Conscious, deliberate attitudes that people are aware of','Automatic evaluative associations that people may be unaware of or unable to report','The speed of attitude change under persuasion','The gap between stated attitudes and behavior'], ans:1, exp:'The IAT measures associations between attitude objects and positive/negative stimuli through reaction times. It taps attitudes people may not consciously know they have or may be unwilling to report on explicit measures.'},
+  {ch:'Ch7', q:'Which of the following best illustrates "self-affirmation" in the context of dissonance reduction?', opts:['Convincing yourself that smoking is not really harmful','Thinking about how good a parent or friend you are after violating your environmental values','Changing your behavior to match your values','Seeking information that confirms your existing beliefs'], ans:1, exp:'Self-affirmation (Steele) involves bolstering overall self-worth by affirming important values in other domains, reducing the need to reduce dissonance in the specific area of inconsistency.'},
+
+  // CH8 Questions
+  {ch:'Ch8', q:'According to Petty, Cacioppo, and Goldman\'s study on comprehensive exams, students who were told the exam would be implemented next year (personally relevant) were more influenced by:', opts:['The expertise of the message source','The number of arguments presented','The strength of the arguments','The attractiveness of the communicator'], ans:2, exp:'When personally relevant (central route conditions), participants carefully evaluated argument quality — strong arguments were persuasive, weak ones weren\'t. When not personally relevant (peripheral route), they were swayed by source expertise instead.'},
+  {ch:'Ch8', q:'Which of the following is the best example of the peripheral route to persuasion?', opts:['Carefully evaluating a politician\'s healthcare policy before voting','Being persuaded to buy a car because the salesperson is attractive','Changing your diet after reading a meta-analysis of nutrition research','Updating your political views after a debate'], ans:1, exp:'The peripheral route involves being swayed by superficial cues — source attractiveness, credibility cues, number of arguments — rather than carefully processing the content. Attractive salesperson is a classic peripheral cue.'},
+  {ch:'Ch8', q:'McGuire\'s attitude inoculation research suggests that the best way to protect people from being persuaded by anti-vaccine arguments is to:', opts:['Avoid exposing them to any anti-vaccine claims','Present them with weak anti-vaccine arguments and have them practice counterarguing','Strengthen their belief that vaccines are safe through repetition','Expose them to the strongest anti-vaccine arguments so they become familiar'],  ans:1, exp:'Inoculation: like a medical vaccine (weak pathogen → builds antibodies), weak persuasive attacks + counterarguing practice → resistance to stronger future attacks. Just repeating the truism doesn\'t help as much as active counterarguing.'},
+  {ch:'Ch8', q:'The "sleeper effect" occurs when:', opts:['Persuasion from a credible source decreases over time','Attitude change from a noncredible source increases over time as source and message become dissociated','People become more persuadable when tired','Fear-based appeals become more effective after the initial fear fades'], ans:1, exp:'A noncredible source initially prevents persuasion (the source\'s lack of credibility discounts the message). Over time, as the source is forgotten but the message remains, attitudes shift in the direction of the message.'},
+  {ch:'Ch8', q:'Leventhal et al.\'s smoking study showed that the most effective intervention combined:', opts:['Statistics about smoking dangers + multiple repetitions','A graphic fear-inducing film + concrete instructions on how to quit','Peer social norms information + government mandate','Positive examples of former smokers + small incentives'], ans:1, exp:'Fear appeals without action information overwhelm and paralyze; action information without fear doesn\'t motivate. The combination of vivid fear (film) plus a clear action plan (pamphlet) was most effective for reducing smoking.'},
+  {ch:'Ch8', q:'In the Iyengar & Kinder agenda control study, participants who saw six news stories about energy (vs. zero) were:', opts:['Less likely to cite energy as an important national problem','More likely to evaluate the president based on energy policy','More likely to question whether energy was a real problem','Equally likely to rate energy as important'], ans:1, exp:'The study showed that media coverage shapes which issues people think are important. Six energy stories led 65% to cite energy as a top problem vs. 24% with no stories. This is agenda control — media shapes the public agenda.'},
+  {ch:'Ch8', q:'What is "need for cognition" and how does it affect persuasion?', opts:['The biological drive to process information for survival; high NFC people are more susceptible to persuasion','Individual difference in enjoying effortful thinking; high NFC people are more influenced by argument quality','A measure of intelligence; high IQ people resist all persuasion','Motivation to belong; high NFC people conform more to group opinions'], ans:1, exp:'Need for cognition is an individual difference in the tendency to engage in and enjoy thinking. High NFC people naturally take the central route, carefully evaluating argument quality. Low NFC people tend to rely on peripheral cues like source attractiveness.'},
+  {ch:'Ch8', q:'The hostile media phenomenon refers to:', opts:['Media intentionally reporting news in a hostile manner','The tendency for people on both sides of a controversy to perceive media coverage as biased against their side','The escalation of hostile rhetoric in news media','The finding that news coverage increases aggression in viewers'], ans:1, exp:'Vallone, Ross, & Lepper: both pro-Israel and pro-Palestine groups viewed the same news coverage as biased against their side. Results from naive realism — people believe they see the world objectively, so any discrepancy from their view seems like bias.'},
+  {ch:'Ch8', q:'The Ditto & Lopez (1992) medical diagnosis study demonstrated which principle of persuasion resistance?', opts:['Attitude inoculation','Selective evaluation of information that threatens our existing beliefs','The hostile media phenomenon','The sleeper effect'], ans:1, exp:'Participants who got an unfavorable diagnosis took much longer to conclude their test was complete (kept re-dipping the paper). They were motivated to see the evidence as inconclusive, demonstrating that we selectively evaluate threatening information to protect beliefs.'},
+  {ch:'Ch8', q:'Han & Shavitt\'s analysis of US vs. Korean magazine ads showed:', opts:['Both cultures preferred collective-focused advertising equally','American ads emphasized individual benefits; Korean ads emphasized collective benefits','Korean ads were more fear-based; American ads were more positive','American ads were more colorful and vivid; Korean ads were more minimalist'], ans:1, exp:'This study showed that effective persuasion must match cultural values. American ads: "Make your way through the crowd" (individualism). Korean ads: "We have a way of bringing people closer" (collectivism). The culturally matched ads were more effective.'},
+
+  // CH9 Questions
+  {ch:'Ch9', q:'In Sherif\'s autokinetic illusion experiment, participants\' estimates converged over time. This best demonstrates:', opts:['Normative social influence','Informational social influence','Compliance','Obedience to authority'], ans:1, exp:'When the situation is genuinely ambiguous (no correct answer for how far a stationary light "moves"), we rely on others as an informational source about reality. This is informational social influence: others help us determine what\'s real and correct.'},
+  {ch:'Ch9', q:'In Asch\'s conformity study, when a single confederate gave a different (though still wrong) answer from the majority, the true participant\'s rate of conformity:', opts:['Remained the same','Increased significantly','Decreased dramatically','Became unpredictable'], ans:2, exp:'A single ally — even one who gives a different wrong answer — dramatically reduced conformity. What matters is breaking unanimity; the participant is no longer the lone dissenter. This shows normative social influence: fear of standing alone drives conformity.'},
+  {ch:'Ch9', q:'What percentage of Milgram\'s participants (voice-feedback condition) delivered the maximum shock of 450 volts?', opts:['About 25%','About 40%','About 62.5%','About 90%'], ans:2, exp:'In the voice-feedback condition (learner could be heard screaming, then going silent), 62.5% still delivered the maximum 450V shock. In the remote-feedback condition, the rate was 65%.'},
+  {ch:'Ch9', q:'Which factor MOST reduced obedience in Milgram\'s variations?', opts:['Moving the experiment from Yale to a less prestigious location','Having the experimenter give commands by phone (vs. in-person)','Increasing the number of confederate "teachers"','Decreasing the shock voltage increments'], ans:1, exp:'When the experimenter had to give orders by telephone (not present in the room), obedience dropped substantially. This increased "psychological distance" from the authority figure, reducing normative pressure to comply.'},
+  {ch:'Ch9', q:'Gelfand\'s concept of "tight" vs. "loose" cultures distinguishes them primarily based on:', opts:['Economic inequality and income distribution','Strength of social norms and tolerance for deviance','Level of individualism vs. collectivism','Degree of government authoritarianism'], ans:1, exp:'Tight cultures have strong norms and punish deviance; loose cultures have weaker norms and more tolerance. While related to individualism/collectivism, tightness/looseness is specifically about norm strength. Ecological threats drive tightness.'},
+  {ch:'Ch9', q:'The foot-in-the-door technique works primarily because:', opts:['People feel guilty if they say no to a follow-up request','The initial agreement changes one\'s self-image ("I\'m someone who does this")','Large first requests create a reciprocity obligation','Mood elevation from the initial interaction increases compliance'],  ans:1, exp:'After agreeing to a small request, people update their self-concept — they see themselves as someone who helps, supports the cause, or does this kind of thing. This updated self-concept increases compliance with subsequent larger requests.'},
+  {ch:'Ch9', q:'Pluralistic ignorance on college campuses regarding alcohol refers to:', opts:['The false belief that one\'s college has stricter alcohol rules than others','Acting uncomfortable with drinking norms while believing most others are comfortable','Overestimating alcohol consumption on other campuses','The peer pressure to drink that most students experience'],  ans:1, exp:'Prentice & Miller found Princeton students privately felt uncomfortable with heavy drinking norms but assumed most others were comfortable with it. This false consensus maintains a problematic norm even though most students secretly share discomfort.'},
+  {ch:'Ch9', q:'A friend uses the door-in-the-face technique when she asks you to:', opts:['First agree to a small task, then gradually escalates to larger tasks','First ask you to help run a 5K marathon you can\'t do, then asks you to donate $20 to her charity','Ask you directly for a large favor without preamble','Ask multiple people simultaneously for the same favor'],  ans:1, exp:'Door-in-the-face: large, unreasonable first request (refused) → smaller, real request. The drop from marathon to $20 donation looks like a concession; norm of reciprocity creates pressure to match that concession by agreeing to the smaller request.'},
+  {ch:'Ch9', q:'According to reactance theory, telling teenagers they absolutely cannot drink alcohol will likely:', opts:['Reduce their desire to drink due to fear of consequences','Increase their desire to drink because freedom is threatened','Have no effect on their desire to drink','Lead to increased information-seeking about alcohol\'s dangers'], ans:1, exp:'Reactance theory (Brehm): when freedom of action is threatened, people experience unpleasant arousal and act to restore it. The forbidden behavior becomes more attractive precisely because it has been prohibited.'},
+  {ch:'Ch9', q:'The primary difference between how majority and minority influence operates is:', opts:['Majority influence produces deeper, private attitude change while minority influence produces surface compliance','Minority influence produces deeper, private attitude change while majority influence often produces surface public compliance','Majority influence works only in ambiguous situations','Minority influence only works when the minority is perceived as experts'], ans:1, exp:'Majority exerts normative influence → public compliance, often without private acceptance. Minority influence (consistent, committed minority) works through informational influence → genuine private attitude reconsideration, though it influences fewer people.'},
+
+  // CH10 Questions
+  {ch:'Ch10', q:'Festinger et al.\'s MIT housing study demonstrated that:', opts:['Similarity is the best predictor of friendship','Functional distance matters more than physical distance in predicting friendship formation','Attraction is primarily based on physical appearance','People prefer same-race friendships regardless of proximity'],  ans:1, exp:'The staircase placement meant apartments 1 and 5 (near stairs) had functional contact with upstairs neighbors that middle apartments didn\'t. Residents of these apartments formed twice as many cross-floor friendships, showing functional distance > physical distance.'},
+  {ch:'Ch10', q:'The mere exposure effect suggests that:', opts:['We like things more the first time we encounter them','Repeated exposure to a stimulus generally increases liking up to a point','Familiarity breeds contempt','We only like things that are novel and surprising'], ans:1, exp:'Zajonc\'s research: mere repeated exposure increases liking even without conscious awareness. Works for faces, images, words. Peaks around 35 exposures. Doesn\'t work for stimuli initially disliked or auditory stimuli.'},
+  {ch:'Ch10', q:'Which is NOT a reliable exception to the "opposites attract" / complementarity hypothesis?', opts:['Dominant people are attracted to submissive partners','People seek partners with higher family status to compensate for lower personal educational achievement','Quiet people are attracted to talkative people because of complementary communication styles','Physically unattractive people seek very attractive partners to compensate'], ans:3, exp:'The matching hypothesis shows people pair with similar-attractiveness partners. Status exchange (complementarity) has evidence for specific status dimensions (family class + education). The dominant/submissive pattern has some support, but blanket complementarity is weak.'},
+  {ch:'Ch10', q:'The halo effect in the context of physical attractiveness means:', opts:['Attractive people glow with an aura of positive energy','We assume attractive people possess many other positive qualities beyond appearance','Attractiveness spreads to associates of attractive people','Attractive people receive halos in religious iconography'], ans:1, exp:'Dion, Berscheid & Walster: people rated as physically attractive were also assumed to be happier, more intelligent, more popular, have better personalities, higher income, and more professional success — based on photos alone.'},
+  {ch:'Ch10', q:'Rusbult\'s investment model predicts that people are most committed to relationships when they have:', opts:['High satisfaction, many available alternatives, and small investments','High satisfaction, few available alternatives, and large investments','Low satisfaction but many investments','Low satisfaction but good communication skills'], ans:1, exp:'Investment model: commitment = high satisfaction + poor alternatives + large investments. If alternatives are abundant, commitment decreases regardless of satisfaction. Large investments (time, effort, shared memories) make leaving costly.'},
+  {ch:'Ch10', q:'Cross-cultural research by Buss (37 cultures) on mate preferences found that:', opts:['Men and women had identical mate preferences across all cultures','Both men and women rated kindness and intelligence as most important; men more than women valued physical attractiveness; women more than men valued resources','Physical attractiveness was rated most important by both genders across cultures','Only Western cultures showed gender differences in mate preferences'], ans:1, exp:'Both genders universally rated kindness and intelligence most highly. BUT men in all 37 cultures valued physical attractiveness and youth more than women did, and women valued financial prospects and ambition more than men did.'},
+  {ch:'Ch10', q:'According to Bowlby\'s attachment theory, the three attachment styles are:', opts:['Secure, independent, and interdependent','Secure, avoidant, and anxious-ambivalent','Secure, fearful, and preoccupied','Open, closed, and anxious'], ans:1, exp:'Bowlby (and later Hazan & Shaver) identified three adult attachment types: Secure (comfortable with closeness), Avoidant (uncomfortable with intimacy), and Anxious-Ambivalent (fears abandonment, wants merger). These map onto infant attachment patterns.'},
+  {ch:'Ch10', q:'Gottman\'s research identified "contempt" as the most toxic relationship behavior because:', opts:['It directly insults the partner\'s intelligence','It signals a fundamental sense of superiority and disrespect; one partner looks down on the other','It always leads to immediate physical conflict','It undermines sexual intimacy'], ans:1, exp:'Contempt — looking down on a partner, rolling eyes, mocking — signals fundamental disrespect and superiority. Couples who eventually divorced expressed more than twice as much contempt as couples who stayed together. It\'s qualitatively different from ordinary disagreement.'},
+  {ch:'Ch10', q:'Eagly & Wood\'s socialization critique of evolutionary mate preference theory argues that gender differences in mate preferences exist because:', opts:['Men are biologically programmed to seek fertile women','Women have less political power globally','Women have historically had less access to economic resources, so they seek partners with those resources','Socialization theory cannot explain gender differences as well as evolution can'], ans:2, exp:'Eagly & Wood: the pattern of women valuing resources and men valuing attractiveness may reflect gender inequality — women need to prioritize men\'s resources because they have fewer of their own. As gender equality increases, the differences shrink (supported by cross-cultural data).'},
+  {ch:'Ch10', q:'The "capitalization" behaviors Gable et al. research found to predict relationship satisfaction refers to:', opts:['Couples who invest financial resources in relationships','Responding to a partner\'s good news with active, enthusiastic engagement','Taking advantage of a partner\'s positive mood to make requests','A tendency to interpret ambiguous partner behaviors positively'], ans:1, exp:'Gable et al.: sharing good news with a partner and receiving active-constructive responses (enthusiastic engagement, questions) predicts greater relationship satisfaction. Passive ("That\'s nice") or destructive ("Don\'t get your hopes up") responses are harmful.'},
+];
+
+const SA_QUESTIONS = [
+  {q:'Describe Jamieson et al.\'s (2016) study on stress reappraisal. Include the key hypothesis, IV, DV(s), results, and main conclusions.', points:'10 pts', difficulty:'Core — Likely on Exam',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Background:</strong> Jamieson et al. based their work on the biopsychosocial model of challenge and threat. Challenge occurs when one's coping resources ≥ perceived situational demands; threat occurs when demands exceed resources. Physiologically, challenge is associated with more adaptive cardiovascular responses (increased cardiac output) than threat.</p>
+   <p><strong>Core Hypothesis:</strong> Reappraising pre-exam arousal as helpful (challenge framing) rather than harmful (threat framing) would improve exam performance, reduce evaluation anxiety, and produce more adaptive physiological responses.</p>
+   <p><strong>Procedure (IV):</strong> Before a real classroom exam, students were randomly assigned to: (1) Reappraisal intervention — read a passage explaining that arousal improves performance; told "try to use your arousal" or (2) Placebo control condition — received an irrelevant passage.</p>
+   <p><strong>DVs and Results:</strong> (1) Exam performance: reappraisal students scored higher. (2) Cardiovascular reactivity: reappraisal students showed more challenge-like cardiovascular patterns. (3) Evaluation anxiety: reappraisal students reported less anxiety. Figure 1 showed the anxiety distributions shifted for the intervention group.</p>
+   <p><strong>Limitations:</strong> Ecological validity concerns (classroom is already real, but reappraisal message is artificial); demand characteristics; unclear if effects generalize to more extreme stressors or different populations.</p>
+   <p><strong>Conclusions:</strong> Cognitive reappraisal can shift physiological stress responses and improve performance. Implications: psychological interventions can have real academic effects; the experience of arousal is malleable through interpretation.</p>`},
+
+  {q:'Describe cognitive dissonance theory. Define the theory, explain what creates dissonance, and describe THREE different types of dissonance with a study supporting each type.', points:'10 pts', difficulty:'High Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Definition:</strong> Cognitive dissonance theory (Festinger, 1957) proposes that inconsistency between a person's thoughts, sentiments, and actions creates an aversive emotional state (dissonance) that motivates efforts to restore consistency — typically by changing an attitude to align with behavior.</p>
+   <p><strong>Conditions for dissonance:</strong> Behavior is freely chosen, insufficiently justified, has negative consequences, and the consequences were foreseeable.</p>
+   <ul>
+   <li><strong>Post-Decision Dissonance:</strong> After choosing between two attractive options, we bolster the chosen and derogate the unchosen. Study: Racetrack betting (Knox & Inkster, 1968) — bettors interviewed after placing bets rated their horse's chances as "good" vs. just "fair" before betting. Also: voter confidence increases after voting.</li>
+   <li><strong>Effort Justification:</strong> Reducing dissonance by justifying effort/pain devoted to something disappointing. Study: Aronson & Mills (1959) — women who read obscene passages ("severe initiation") to join a group rated a boring discussion more favorably than those with mild or no initiation.</li>
+   <li><strong>Induced (Forced) Compliance:</strong> Being induced to behave contrary to beliefs with insufficient justification. Study: Festinger & Carlsmith (1959) — participants paid $1 (vs. $20) to say a boring task was interesting later rated the task as more enjoyable. Small reward = insufficient justification = more attitude change.</li>
+   </ul>
+   <p>Distinguish from self-perception theory: while both theories predict attitude change following behavior, dissonance theory requires aversive arousal and is more relevant when attitudes are clear and important.</p>`},
+
+  {q:'What is the Elaboration Likelihood Model (ELM)? Describe the two routes to persuasion and explain what determines which route is used. Give one real-world example of each route.', points:'10 pts', difficulty:'High Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>ELM (Petty & Cacioppo):</strong> A model explaining how persuasive communications cause attitude change. Two routes differ in the degree of elaboration (effortful thinking) applied to the message.</p>
+   <p><strong>Central Route:</strong> Persuasion through careful, systematic analysis of message content, argument strength, and relevant evidence. Requires both motivation (personal relevance, interest) and ability (knowledge, no distraction). Produces more durable, resistant attitude change. Example: A medical student carefully evaluating evidence in a meta-analysis about a new treatment protocol before adopting it.</p>
+   <p><strong>Peripheral Route:</strong> Persuasion through easy-to-process cues that are tangential to the argument's content — source attractiveness, source credibility (as a heuristic), number of arguments, emotional appeals. Operates when motivation or ability is low. Produces more temporary attitude change. Example: Buying a brand of shoes because a celebrity athlete endorses them, without evaluating shoe quality.</p>
+   <p><strong>What determines which route:</strong> Motivation (personal relevance of the topic, need for cognition) and Ability (distraction, prior knowledge, time to process). High motivation AND ability → central route. Low motivation OR ability → peripheral route.</p>
+   <p><strong>Key empirical support:</strong> Petty, Cacioppo & Goldman exam study: personally relevant condition (exam next year) → argument strength determined persuasion; not personally relevant → source expertise determined persuasion.</p>`},
+
+  {q:'Describe Milgram\'s obedience study. What were the IV, DV, and key findings? What psychological processes explain why participants obeyed? What factors moderated obedience?', points:'10 pts', difficulty:'High Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Setup:</strong> Milgram recruited participants for an alleged "learning experiment." Participants were assigned as "teachers," confederates as "learners." Teachers were told to deliver increasingly severe electric shocks (15–450V) every time the learner made an error.</p>
+   <p><strong>Key Finding:</strong> In the voice-feedback condition, 62.5% of participants delivered the maximum 450V shock despite the learner screaming, demanding release, claiming heart problems, and eventually going silent. In remote-feedback, 65% obeyed fully.</p>
+   <p><strong>Why people obeyed:</strong> (1) Gradual escalation — stepwise increments made it hard to know when to stop; (2) Release of responsibility — experimenter said "I'll take responsibility"; (3) Perceived legitimacy — experiment conducted at Yale, by scientists; (4) Normative pressure — desire to avoid making a scene or displeasing authority; (5) Confused participants — events violated normal social rules, causing uncertainty about appropriate action.</p>
+   <p><strong>Moderating factors:</strong> <em>Reduced obedience:</em> proximity to the learner (same room, touching), distance from experimenter (phone orders), having an ally who defied the experimenter, moving to a less prestigious location. <em>No effect:</em> gender of participant (men and women obeyed equally, per Burger replication).</p>
+   <p><strong>Broader implication:</strong> Most participants tried to disobey but were ineffective — this was "indecisive disobedience." Parallels to Nazi Reserve Police Battalion 101 behavior.</p>`},
+
+  {q:'Describe and compare the proximity effect and the mere exposure effect as determinants of attraction. Include a key study for each.', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Proximity Effect:</strong> Physical closeness (proximity) promotes liking and friendship formation. Functional distance — the influence of physical layout on who we encounter — matters more than raw physical distance.</p>
+   <p>Key Study: Festinger et al. MIT housing study. Married students randomly assigned to apartments; proximity predicted friendship formation. Residents who lived next door to one another were 4x more likely to become friends than residents at opposite ends of the hallway. Residents near stairwells (high functional distance to upstairs) formed 2x as many cross-floor friendships.</p>
+   <p><strong>Mechanism:</strong> Proximity facilitates chance encounters; encounters allow discovery of similarities; repeated contact triggers the mere exposure effect.</p>
+   <p><strong>Mere Exposure Effect (Zajonc):</strong> Repeated exposure to any stimulus — independent of context — increases liking of that stimulus. Works even without conscious awareness that the stimulus has been seen before.</p>
+   <p>Key Study: Rats raised on Mozart preferred Mozart; rats raised on Schoenberg preferred Schoenberg (Cross et al., 1967). In humans, yearbook photos shown repeatedly generated more liking. Effect peaks around 35 exposures; declines with very high repetition. Does not work for initially disliked stimuli or auditory stimuli.</p>
+   <p><strong>Mechanism (Zajonc):</strong> Repeated exposure with no negative consequences → stimulus becomes associated with safety and comfort. Also: familiar stimuli are processed more fluently, and fluency feels pleasant (Reber et al., 2004).</p>
+   <p><strong>Relationship between them:</strong> Proximity leads to attraction partly by creating conditions for mere exposure. Both demonstrate that attraction isn't purely cognitive — much depends on environmental factors and processing fluency.</p>`},
+
+  {q:'Describe Asch\'s conformity experiment. What were the procedures, key findings, and what type of social influence explains the conformity observed?', points:'10 pts', difficulty:'High Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Procedure:</strong> Groups of 8 men, 7 of whom were confederates, completed a simple line-matching task: which of 3 comparison lines matched a target line? The task was easy (nearly 0% error when alone). On 12 critical trials, confederates unanimously gave the wrong answer. The question was whether the true participant would conform.</p>
+   <p><strong>Key Findings:</strong> 75% of participants conformed at least once. Overall, participants conformed on 33% of critical trials — surprisingly high given the task clarity. In control conditions (alone), participants were nearly 100% accurate.</p>
+   <p><strong>Type of influence:</strong> Primarily normative social influence — the desire to avoid standing out negatively, facing social rejection, and incurring the disapproval of others. (Some informational influence also possible since lines were only 0.5–0.75 inch off.)</p>
+   <p><strong>Moderating factors:</strong> One ally (single dissenter) dramatically reduced conformity; anonymity (written responses) nearly eliminated it; larger group size increases conformity up to 3–4 people; cultural background (interdependent cultures conform more).</p>
+   <p><strong>Broader implication:</strong> Even in unambiguous situations with objective correct answers, people will deny clear perceptual evidence to avoid social disapproval. Normative social pressure is powerful even with strangers.</p>`},
+
+  {q:'Describe the investment model of commitment. What are the three determinants of commitment, and how does commitment predict relationship longevity?', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Investment Model (Rusbult, 1980):</strong> Influenced by social exchange theory, this model proposes that relationship commitment is determined by three factors:</p>
+   <ul>
+   <li><strong>(1) Satisfaction:</strong> The extent to which the relationship meets one's needs; based on evaluation of rewards and costs. Higher satisfaction → greater commitment. Recent work: people base commitment on expected future satisfaction more than current satisfaction.</li>
+   <li><strong>(2) Quality of Alternatives:</strong> How attractive alternative partners appear. The fewer/worse the alternatives, the more committed a person feels. Romantic partners who report few potential alternatives are less likely to break up later.</li>
+   <li><strong>(3) Magnitude of Investments:</strong> The resources embedded in the relationship — time, effort, caring, shared memories, mutual friends, possessions. Greater investments make leaving costly. Self becomes invested ("we" language).</li>
+   </ul>
+   <p><strong>How commitment predicts longevity:</strong> Commitment promotes behaviors that maintain the relationship: greater forgiveness of partner mistakes (Finkel et al.), greater self-sacrifice (agreeing to move cities, changing habits). Commitment isn't just passive — it generates active relationship maintenance.</p>
+   <p><strong>Application:</strong> Explains why people stay in unhappy or even abusive relationships — large investments, few alternatives, or both can maintain commitment despite low satisfaction.</p>`},
+
+  {q:'What evidence supports the view that emotions are functional? Give at least THREE ways emotions benefit social relationships, with specific examples.', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p>Traditional views held emotions are irrational disruptors. Social functional theory (Frijda & Mesquita; Keltner & Haidt) proposes that emotions coordinate social interactions and help people meet social goals.</p>
+   <ul>
+   <li><strong>Commitment in relationships:</strong> Gratitude expression signals commitment to new acquaintances, predicting stronger friendships (Algoe et al.). Guilt motivates amends-making. Oxytocin (released in loving interactions) promotes trust and cooperation within groups.</li>
+   <li><strong>Collaboration:</strong> Emotional mimicry facilitates cooperation — cricket teams that shared emotional expressions played better. Touch (expressing gratitude, compassion) coordinates behavior; NBA touch study found early-season touching predicted later team performance.</li>
+   <li><strong>Status negotiation:</strong> Pride motivates behaviors that gain status; expressions of pride lead people to be imitated and followed. Anger in negotiation can increase concessions from opponents. Envy motivates either status challenge (malicious) or improvement (benign).</li>
+   <li><strong>Group identity:</strong> Awe connects individuals to larger collectives; people experiencing awe are more likely to define themselves in collective terms. Collective emotions after trauma (Rimé) create community convergence.</li>
+   <li><strong>Anger as justice-motivation:</strong> Anger consistently predicts protest behavior in studies of racial justice protesters (van Zomeren et al.). Even capuchin monkeys "strike" when treated unfairly (Brosnan & de Waal).</li>
+   </ul>
+   <p>Evidence from brain damage: Muybridge's orbitofrontal damage eliminated appropriate emotional responses → inability to commit, cooperate, or belong. Demonstrates emotions are functionally necessary for social life.</p>`},
+
+  {q:'Compare and contrast informational social influence and normative social influence. Include one study that primarily demonstrates each type.', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Informational Social Influence:</strong> Conforming because others' behavior provides useful information about what is correct, appropriate, or real. We are uncertain, so we use others as a guide. Leads to internalization (genuine private attitude change).</p>
+   <p>Key Study: Sherif's autokinetic illusion — participants uncertain about how far a light "moved" in a dark room. Individual estimates varied; in groups, they converged into a stable group norm that persisted up to a year later. Participants genuinely updated their perception of reality based on others' reports.</p>
+   <p><strong>Normative Social Influence:</strong> Conforming to avoid disapproval and social sanctions. We know the right answer but conform publicly to avoid looking foolish or being rejected. Often leads only to public compliance (surface behavior) without private acceptance.</p>
+   <p>Key Study: Asch's line study — the correct answer was objectively clear (control participants were 99%+ accurate). Yet 75% conformed at least once to an obviously wrong majority answer. Primarily normative: participants reported knowing the answer but feared standing out. When allowed to write answers anonymously (eliminating normative pressure), conformity dropped dramatically.</p>
+   <p><strong>Key Distinctions:</strong></p>
+   <ul>
+   <li>Situation: ambiguous (informational) vs. clear (normative)</li>
+   <li>Outcome: internalization (informational) vs. public compliance (normative)</li>
+   <li>Reduced by: acquiring more information (informational) vs. anonymity or having an ally (normative)</li>
+   </ul>`},
+
+  {q:'Describe evolutionary psychology\'s explanation for gender differences in mate preferences. What is a socialization/cultural alternative explanation, and what evidence supports each view?', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Evolutionary Explanation (Buss, Trivers):</strong> Differential parental investment drives mate preferences. Women invest more in offspring (one egg/lifetime, nine months gestation, extended nursing) → be more selective, seek mates with resources and status to invest in offspring. Men invest less biologically (abundant sperm) → seek cues to fertility: youth and physical attractiveness. Maximizes reproductive fitness.</p>
+   <p>Supporting evidence: Buss's 37-culture study — in all cultures, men valued physical attractiveness and youth more; women valued financial prospects and ambition more. Personal ads and online dating: men offer resources/seek attractiveness; women offer attractiveness/seek resources. Similar patterns in gay men (seek attractiveness) vs. lesbians (less focus on partner's looks).</p>
+   <p><strong>Socialization Alternative (Eagly & Wood):</strong> Gender differences reflect structural gender inequality and socialization, not evolution. Women value resources in mates because they have historically had less access to economic resources themselves. When structural inequality is reduced, mate preference differences should diminish.</p>
+   <p>Supporting evidence: Reanalysis of the 37-culture data — in societies with greater gender equality (Finland, US, Philippines), men's preference for attractive mates and women's preference for resourceful mates was less pronounced. In Turkey and Mexico (more gender inequality), the differences were stronger.</p>
+   <p><strong>Critiques of evolutionary view:</strong> Theory is untestable (can't replay evolution); oversimplifies complex behavior; alternative explanations fit the same data. Note: both sexes rate kindness and intelligence MOST highly, cross-culturally — this nuance is important.</p>`},
+
+  {q:'Describe attachment theory and the three attachment styles. How do early attachment experiences influence adult relationships?', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Attachment Theory (Bowlby; Hazan & Shaver):</strong> Early bonds with caregivers create internal "working models" — mental representations of the self and others in relationships — that influence relationships throughout life.</p>
+   <p><strong>Three Attachment Styles:</strong></p>
+   <ul>
+   <li><strong>Secure:</strong> "I find it easy to get close to others and am comfortable depending on them." Caregiver was reliable and responsive. Adult correlates: seek support effectively, trust partners, deal constructively with trust violations.</li>
+   <li><strong>Avoidant:</strong> "I'm uncomfortable being close; I find it difficult to trust others completely." Caregiver frequently rejected the infant. Adult correlates: uncomfortable with intimacy, suppress attachment needs, resist seeking support.</li>
+   <li><strong>Anxious-Ambivalent:</strong> "I worry my partner doesn't love me or will leave me." Caregiver was inconsistent and unpredictable. Adult correlates: intense desire for closeness, fear of abandonment, sometimes drives others away with neediness.</li>
+   </ul>
+   <p><strong>Influence on adult relationships:</strong> Attachment style predicts relationship quality, communication patterns, how people handle conflict, and even parenting behavior. Securely attached adults have more satisfying, stable relationships. Anxiously attached adults show rejection sensitivity, which predicts relationship hostility. Avoidantly attached adults withdraw during conflict.</p>
+   <p><strong>Nuance:</strong> Attachment is not destiny — people can have multiple working models (different in different relationships) and can change over time with positive relationship experiences that counter old working models.</p>`},
+
+  {q:'What does research tell us about the most effective ways to pursue happiness? Describe at least FOUR evidence-based recommendations with a brief explanation of each.', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>1. Social connections:</strong> People are happiest when in meaningful social interactions with friends and intimate partners (Kahneman et al. daily activity study). Social bonds lift spirits; religious engagement improves happiness partly through community. Even a few close friendships suffice — avoid isolation.</p>
+   <p><strong>2. Gratitude:</strong> Writing about things you're grateful for boosts life satisfaction and reduces health complaints. Recipients of gratitude letters are more touched than senders expect (Kumar & Epley, 2018). Gratitude interventions work best done about once a week (not daily — can become rote).</p>
+   <p><strong>3. Give to others:</strong> Dunn et al. — participants who spent money on others reported more happiness than those who spent on themselves. Replicated in 136 cultures. Volunteering, charitable giving, and surprising others with gifts all increase well-being.</p>
+   <p><strong>4. Experiences over material goods:</strong> Experiential purchases (concerts, trips) bring more joy than material purchases (objects). Experiences linger in memory and form identity; objects are habituated to quickly. The "psychological immune system" works better on experiences.</p>
+   <p><strong>5. Awe:</strong> Brief awe experiences (nature, inspiring people, music) boost happiness by expanding sense of time, diminishing entitlement, and connecting to something larger than oneself. Even a 10-minute walk in natural beauty counts.</p>
+   <p><strong>6. Money (nuanced):</strong> Money increases life satisfaction, but for moment-to-moment emotional well-being, the effect plateaus around $75K/year (Kahneman & Deaton). Spend it on experiences and others for maximum happiness return.</p>`},
+
+  {q:'Define and compare the three major social influence concepts: conformity, compliance, and obedience. Give an example and a key study for each.', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Conformity:</strong> Changing beliefs or behavior to more closely align with those of others, in response to explicit or implicit pressure. Can be automatic (mimicry) or deliberate. Two mechanisms: informational (what's correct?) and normative (what will avoid disapproval?).</p>
+   <p>Example: Changing your estimate of how far a light moved in the dark because others said something different. Key study: Asch's line experiment — 33% conformity rate to obviously wrong majority answers; driven primarily by normative pressure.</p>
+   <p><strong>Compliance:</strong> Responding favorably to an explicit request from another person. Power does not have to be involved — requests come from peers or authority figures. Key techniques: foot-in-the-door, door-in-the-face, norm of reciprocity.</p>
+   <p>Example: Agreeing to donate $20 after initially being asked to donate $100 (door-in-the-face). Key study: Cialdini's Boy Scout study — 50% agreed to chaperone zoo trip after refusing 2-year volunteering commitment, vs. 17% without the large request first.</p>
+   <p><strong>Obedience:</strong> Submitting to explicit demands from an authority figure in an unequal power relationship. Compliance becomes obedience when the power differential is explicit and the form is a demand (not request).</p>
+   <p>Example: Following a doctor's orders even when you find the instructions unclear. Key study: Milgram's shock experiment — 62.5% delivered maximum 450V shocks, driven by authority legitimacy, gradual escalation, and release of responsibility.</p>
+   <p><strong>Key distinction:</strong> Conformity can be implicit/automatic; compliance is response to explicit request from peer or authority; obedience specifically involves authority's demands and power differential.</p>`},
+
+  {q:'Describe the social psychological factors that predict relationship dissatisfaction and divorce. Include both external/demographic and psychological/behavioral predictors.', points:'10 pts', difficulty:'Medium Priority',
+   ans:`<h4>Model Answer</h4>
+   <p><strong>Demographic/External Predictors:</strong></p>
+   <ul>
+   <li>Low socioeconomic status: people from lower SES backgrounds more likely to marry younger, have children earlier, and divorce (Karney, 2021)</li>
+   <li>Young age at marriage: marrying very young (teens) strongly predicts divorce</li>
+   <li>Previous divorce: history of divorce in either partner increases risk</li>
+   </ul>
+   <p><strong>Personality/Individual Differences:</strong></p>
+   <ul>
+   <li>Neuroticism: anxiety, emotional volatility, melancholy → less happy relationships, more divorce (Karney & Bradbury)</li>
+   <li>Low self-esteem: predicts relationship difficulties, rejection sensitivity, hostility when feeling rejected</li>
+   <li>Rejection sensitivity: people hypersensitive to rejection respond with hostility to perceived abandonment</li>
+   </ul>
+   <p><strong>Communication/Behavioral Predictors:</strong></p>
+   <ul>
+   <li>Gottman's Four Horsemen: Criticism (finding fault), Stonewalling (withdrawal), Defensiveness (refusing accountability), Contempt (most toxic — looking down on partner). Couples who divorced expressed 2x more contempt.</li>
+   <li>Negative attribution patterns: distressed partners attribute positive events to unstable causes ("fluke") and negative events to global, stable, intentional causes ("This is what they're always like"). Happy couples do the reverse.</li>
+   <li>Lack of self-disclosure: couples who don't openly share feelings have less satisfying relationships</li>
+   </ul>
+   <p><strong>Bottom line:</strong> Both structural factors (SES, age) and psychological factors (personality, communication) predict dissatisfaction. The interaction matters — negative attributions and contempt may be especially harmful under economic stress (Nguyen et al., 2021).</p>`},
+];
+
+const TIPS = [
+  {h:'Know Your Key Studies', p:'For every major theory, know at least one supporting study with: (1) the hypothesis, (2) the IV, (3) the DV, (4) the result. The exam will ask you to apply, not just recall.'},
+  {h:'The "Why" Behind Dissonance', p:'Don\'t just memorize the types. Understand the logic: behavior creates inconsistency → aversive arousal → attitude change. Ask yourself: why does the $1 condition change attitude more than $20?'},
+  {h:'ELM Decision Tree', p:'When you see a persuasion question, ask: Is the person motivated? Do they have the ability? High both → central route (argument quality matters). Low either → peripheral (cues matter).'},
+  {h:'Milgram\'s Key Variables', p:'Memorize what INCREASES and DECREASES obedience: Proximity to victim ↓, distance from experimenter ↓, ally ↓, stepwise escalation ↑, authority legitimacy ↑, release of responsibility ↑.'},
+  {h:'Asch vs. Sherif', p:'Sherif = ambiguous situation (no right answer) → INFORMATIONAL influence → convergence. Asch = clear answer → NORMATIVE influence → compliance without belief. Both are conformity, but different mechanisms.'},
+  {h:'The Jamieson Article', p:'This is the empirical article. Know: biopsychosocial model, challenge vs. threat, the 3 DVs (exam performance, cardiovascular reactivity, evaluation anxiety), and the conclusion (reappraisal → challenge state → better outcomes).'},
+  {h:'Attachment Styles Mnemonics', p:'Secure = comfortable with closeness. Avoidant = avoids intimacy (ironically the A stands for avoids). Anxious-Ambivalent = anxious about abandonment, ambivalent (wanting closeness but scared).'},
+  {h:'Equity vs. Exchange', p:'Social exchange: maximize your own reward-cost ratio. Equity: make sure BOTH partners have fair ratios. Equity is a specific form of exchange where fairness (not just profit) is the goal.'},
+  {h:'Investment Model = 3 S\'s', p:'Satisfaction (happy with relationship) + Scarcity (of alternatives) + Sacrifice invested = high commitment. All three push toward staying.'},
+  {h:'Evolutionary Critique', p:'Don\'t forget Eagly & Wood. The exam may test whether you know the socialization alternative: women value resources because they have fewer, not because evolution hardwired them. Gender equality predicts smaller mate preference differences.'},
+  {h:'Cultural Comparisons Everywhere', p:'For almost every topic, there are cross-cultural nuances. Dissonance (Japanese need social priming), focal emotions, tight/loose cultures, conformity rates — these come up frequently on exams.'},
+  {h:'Study Guide is Your Checklist', p:'Go through the study guide bullet by bullet. If you can\'t explain a concept in 2–3 sentences with an example, that\'s a gap to fill. Knowing the term isn\'t enough — you need the mechanism.'},
+];
+
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleTopic(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════════════
+// FLASHCARDS
+// ═══════════════════════════════════════════════════════════
+let fcDeck = [...FLASHCARDS];
+let fcIdx = 0;
+let fcFilter = 'all';
+let fcMarked = {};
+
+document.getElementById('fc-count').textContent = FLASHCARDS.length;
+document.getElementById('fc-total-badge').textContent = FLASHCARDS.length + ' Terms';
+
+function filterFlashcards(filter, btn) {
+  document.querySelectorAll('.fc-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  fcFilter = filter;
+  if (filter === 'all') fcDeck = [...FLASHCARDS];
+  else if (filter === 'review') fcDeck = FLASHCARDS.filter(c => fcMarked[c.term] === 'review');
+  else fcDeck = FLASHCARDS.filter(c => c.ch === filter);
+  fcIdx = 0;
+  loadCard();
+}
+
+function shuffleCards() {
+  fcDeck = fcDeck.sort(() => Math.random() - .5);
+  fcIdx = 0;
+  loadCard();
+}
+
+function loadCard() {
+  if (fcDeck.length === 0) {
+    document.getElementById('fc-term').textContent = 'No cards in this filter!';
+    document.getElementById('fc-def').textContent = '';
+    document.getElementById('fc-example').textContent = '';
+    document.getElementById('fc-chapter').textContent = '—';
+    document.getElementById('fc-chapter-b').textContent = '—';
+    document.getElementById('fc-progress-text').textContent = '0 / 0';
+    document.getElementById('fc-progress').style.width = '0%';
+    return;
+  }
+  const card = fcDeck[fcIdx];
+  document.getElementById('fc-term').textContent = card.term;
+  document.getElementById('fc-def').textContent = card.def;
+  document.getElementById('fc-example').textContent = card.ex ? '→ ' + card.ex : '';
+  document.getElementById('fc-chapter').textContent = card.ch;
+  document.getElementById('fc-chapter-b').textContent = card.ch;
+  document.getElementById('fc-progress-text').textContent = (fcIdx + 1) + ' / ' + fcDeck.length;
+  const pct = ((fcIdx + 1) / fcDeck.length) * 100;
+  document.getElementById('fc-progress').style.width = pct + '%';
+  // Reset flip
+  document.getElementById('flashcard').classList.remove('flipped');
+  // Update stats
+  const knowCount = Object.values(fcMarked).filter(v => v === 'know').length;
+  const reviewCount = Object.values(fcMarked).filter(v => v === 'review').length;
+  document.getElementById('fc-stats').textContent = `✓ ${knowCount}  ⭐ ${reviewCount}`;
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextCard() {
+  fcIdx = (fcIdx + 1) % fcDeck.length;
+  loadCard();
+}
+
+function prevCard() {
+  fcIdx = (fcIdx - 1 + fcDeck.length) % fcDeck.length;
+  loadCard();
+}
+
+function markCard(status) {
+  if (fcDeck.length === 0) return;
+  const card = fcDeck[fcIdx];
+  fcMarked[card.term] = status;
+  nextCard();
+}
+
+loadCard();
+
+// ═══════════════════════════════════════════════════════════
+// MULTIPLE CHOICE
+// ═══════════════════════════════════════════════════════════
+let mcScoreCorrect = 0;
+let mcScoreWrong = 0;
+let mcFilter = 'all';
+
+document.getElementById('mc-count').textContent = MC_QUESTIONS.length;
+document.getElementById('mc-total-badge').textContent = MC_QUESTIONS.length + ' Questions';
+
+function renderMC(questions) {
+  const container = document.getElementById('mc-questions');
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-card';
+    div.id = 'qcard-' + i;
+    const opts = q.opts.map((o, j) => `
+      <div class="option" id="opt-${i}-${j}" onclick="selectAnswer(${i}, ${j}, ${q.ans})">
+        <span class="option-letter">${String.fromCharCode(65+j)}</span>
+        <span>${o}</span>
+      </div>
+    `).join('');
+    div.innerHTML = `
+      <div class="q-meta">
+        <div class="q-num">${i+1}</div>
+        <span class="q-topic">${q.ch}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${opts}</div>
+      <div class="explanation" id="exp-${i}"><strong>Explanation:</strong> ${q.exp}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function selectAnswer(qIdx, optIdx, correctIdx) {
+  const opts = document.querySelectorAll(`[id^="opt-${qIdx}-"]`);
+  if (opts[0].classList.contains('disabled')) return;
+
+  opts.forEach(o => o.classList.add('disabled'));
+  const expEl = document.getElementById('exp-' + qIdx);
+
+  if (optIdx === correctIdx) {
+    opts[optIdx].classList.add('correct');
+    mcScoreCorrect++;
+  } else {
+    opts[optIdx].classList.add('wrong');
+    opts[correctIdx].classList.add('correct');
+    mcScoreWrong++;
+  }
+  expEl.classList.add('show');
+  document.getElementById('score-correct').textContent = mcScoreCorrect;
+  document.getElementById('score-wrong').textContent = mcScoreWrong;
+}
+
+function filterMC(filter, btn) {
+  document.querySelectorAll('#mc .fc-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  mcFilter = filter;
+  const qs = filter === 'all' ? MC_QUESTIONS : MC_QUESTIONS.filter(q => q.ch === filter);
+  renderMC(qs);
+}
+
+function resetQuiz() {
+  mcScoreCorrect = 0; mcScoreWrong = 0;
+  document.getElementById('score-correct').textContent = 0;
+  document.getElementById('score-wrong').textContent = 0;
+  const btn = document.querySelector(`#mc .fc-filter.active`);
+  filterMC(mcFilter, btn || document.querySelector('#mc .fc-filter'));
+}
+
+renderMC(MC_QUESTIONS);
+
+// ═══════════════════════════════════════════════════════════
+// SHORT ANSWER
+// ═══════════════════════════════════════════════════════════
+function renderSA() {
+  const container = document.getElementById('sa-questions');
+  SA_QUESTIONS.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'sa-card';
+    div.innerHTML = `
+      <div class="sa-q">${i+1}. ${q.q}</div>
+      <div class="sa-meta">
+        <span class="pill pill-r">${q.points}</span>
+        <span class="pill pill-b" style="margin-left:.4rem">${q.difficulty}</span>
+      </div>
+      <button class="sa-toggle" onclick="toggleSA(this)">Show Model Answer</button>
+      <div class="sa-answer">${q.ans}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function toggleSA(btn) {
+  const ans = btn.nextElementSibling;
+  ans.classList.toggle('show');
+  btn.textContent = ans.classList.contains('show') ? 'Hide Answer' : 'Show Model Answer';
+}
+
+renderSA();
+
+// ═══════════════════════════════════════════════════════════
+// TIPS
+// ═══════════════════════════════════════════════════════════
+function renderTips() {
+  const c = document.getElementById('tips-container');
+  TIPS.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'tip-card';
+    d.innerHTML = `<h3>${t.h}</h3><p>${t.p}</p>`;
+    c.appendChild(d);
+  });
+}
+renderTips();
+</script>
+</body>
+</html>
